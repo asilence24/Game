@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package amt.main;
 
 import amt.main.gfx.Display;
+import amt.main.input.KeyManager;
 import java.awt.Graphics;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -23,6 +19,9 @@ public class Game extends GameLoop{
     
     private int width,height;
     
+    private KeyManager keyManager;
+    
+    
     /**
      * Is called on start of program
      */
@@ -32,6 +31,11 @@ public class Game extends GameLoop{
         height = 720;
         display = new Display("Game",width,height);
         
+        keyManager = new KeyManager();
+        
+        display.getFrame().addKeyListener(keyManager);
+        display.getCanvas().addKeyListener(keyManager);
+        
         //set up closing operation, don't touch this
         display.getFrame().addWindowListener(new WindowAdapter() {
             @Override
@@ -40,6 +44,7 @@ public class Game extends GameLoop{
             }
         });
     }
+    
     /**
      * Is called to close the program
      */
@@ -53,7 +58,7 @@ public class Game extends GameLoop{
      */
     @Override
     public void update() {
-        
+        keyManager.update();
     }
     
     /**
@@ -80,7 +85,7 @@ public class Game extends GameLoop{
     * @param g Current Graphics component
     */
     private void draw(Graphics g){
-        g.fillRect(100, 100, 299, 300);
+        
     }
     
 }
