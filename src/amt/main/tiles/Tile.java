@@ -5,10 +5,18 @@
  */
 package amt.main.tiles;
 
-/**
- *
- * @author mgalan11
- */
 public abstract class Tile {
+    //If the tile can not be passed through
+    private boolean isSolid;
     
+    public Tile(boolean isSolid) {
+        this.isSolid = isSolid;
+    }
+    
+    /**
+     * @return If the tile can not be passed through
+     */
+    public boolean isSolid() {
+        return isSolid;
+    }
 }

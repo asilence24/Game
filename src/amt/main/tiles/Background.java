@@ -5,10 +5,9 @@
  */
 package amt.main.tiles;
 
-/**
- *
- * @author mgalan11
- */
 public class Background extends Tile {
     
+    public Background() {
+        super(false);
+    }
 }
