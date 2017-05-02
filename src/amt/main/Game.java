@@ -1,5 +1,6 @@
 package amt.main;
 
+import amt.main.gfx.Assets;
 import amt.main.gfx.Display;
 import amt.main.input.KeyManager;
 import amt.main.input.MouseManager;
@@ -43,6 +44,9 @@ public class Game extends GameLoop {
         
         //handler
         handler = new Handler(this);
+        
+        //loads textures
+        Assets.init();
         
         //set up input
         keyManager = new KeyManager();
