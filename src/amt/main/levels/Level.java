@@ -15,25 +15,21 @@ public class Level {
     Tile[][] tiles;
     
     public Level(int width, int height) {
-        Tile[][] tile = new Tile[width][height];
+         tiles = new Tile[width][height];
     }
     
-    /**
-     * Set the tile at coordinates (x, y) from the top left
-     * @param x The x coordinate (starts at 0)
-     * @param y The y coordinate (starts at 0)
-     * @param tile The tile to set the spot to
-     */
+    public void render() {
+        for (int x = 0; x < tiles.length; x++) {
+            for (int y = 0; y < tiles[0].length; y++) {
+                tiles[x][y].render();
+            }
+        }
+    }
+    
     public void setTile(int x, int y, Tile tile) {
         tiles[x][y] = tile;
     }
     
-    /**
-     * Get the tile at coordinates (x, y) from the top left
-     * @param x The x coordinate (starts at 0)
-     * @param y The y coordinate (starts at 0)
-     * @return The tile at the spot
-     */
     public Tile getTile(int x, int y) {
         return tiles[x][y];
     }

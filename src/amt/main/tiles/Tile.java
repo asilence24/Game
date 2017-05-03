@@ -13,8 +13,11 @@ public abstract class Tile {
         this.isSolid = isSolid;
     }
     
-    /**
-     * @return If the tile can not be passed through
+    public void render() {
+        
+    }
+    
+    /** @return If the tile can not be passed through
      */
     public boolean isSolid() {
         return isSolid;
