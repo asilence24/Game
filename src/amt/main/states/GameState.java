@@ -1,6 +1,7 @@
 package amt.main.states;
 
 import amt.main.Handler;
+import amt.main.levels.Level;
 import amt.main.levels.LevelLoader;
 import java.awt.Graphics;
 
@@ -8,10 +9,11 @@ import java.awt.Graphics;
 public class GameState extends State{
     
     private Handler handler;
+    private Level level;
     
     public GameState(Handler handler){    
         super(handler);
-        LevelLoader.loadLevel("test");
+        level = LevelLoader.loadLevel("test");
     }
 
     @Override
@@ -21,7 +23,7 @@ public class GameState extends State{
 
     @Override
     public void render(Graphics g){
-        
+        level.render(g);
     }
 
 }

@@ -5,6 +5,9 @@
  */
 package amt.main.tiles;
 
+import amt.main.gfx.Assets;
+import java.awt.Graphics;
+
 public abstract class Tile {
     //If the tile can not be passed through
     private boolean isSolid;
@@ -13,8 +16,8 @@ public abstract class Tile {
         this.isSolid = isSolid;
     }
     
-    public void render() {
-        
+    public void render(Graphics g) {
+        g.drawImage(Assets.platform, Assets.width, Assets.height, 64, 64, null);
     }
     
     /** @return If the tile can not be passed through
