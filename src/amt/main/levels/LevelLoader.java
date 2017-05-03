@@ -54,6 +54,7 @@ public class LevelLoader
                     }
                 }
             }
+            return newLevel;
         } catch (Exception e) {
             System.err.println("Couldn't load level \"" + name + "\"!");
             e.printStackTrace();
