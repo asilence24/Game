@@ -5,9 +5,18 @@
  */
 package amt.main.tiles;
 
+import amt.main.gfx.Assets;
+import java.awt.Graphics;
+
 public class Platform extends Tile {
     
-    public Platform() {
-        super(true);
+    @Override
+    public boolean isSolid() {
+        return true;
+    }
+
+    @Override
+    public void render(int x, int y, Graphics g) {
+        g.drawImage(Assets.platform, x, y, Assets.width, Assets.height, null);
     }
 }

@@ -5,6 +5,7 @@
  */
 package amt.main.levels;
 
+import amt.main.gfx.Assets;
 import amt.main.tiles.Tile;
 import java.awt.Graphics;
 
@@ -22,7 +23,7 @@ public class Level {
     public void render(Graphics g) {
         for (int x = 0; x < tiles.length; x++) {
             for (int y = 0; y < tiles[0].length; y++) {
-                tiles[x][y].render(g);
+                tiles[x][y].render(x * Assets.width, y * Assets.height, g);
             }
         }
     }

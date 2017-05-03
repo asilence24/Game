@@ -10,15 +10,22 @@ public class Assets {
     
     public static int width=64, height=64;
     
-    public static BufferedImage platform;
+    public static BufferedImage platform, background;
+    
+    private static SpriteSheet sheet;
     
     /**
      * initiates all assets
      */
     public static void init(){
-        SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/sokoban_tilesheet.png"));
+        sheet = new SpriteSheet(ImageLoader.loadImage("/textures/sokoban_tilesheet.png"));
         
-        platform = sheet.crop(64, 0, width, height);
+        platform = easyLoad(1, 0);
+        background = easyLoad(11, 6);
+    }
+    
+    private static BufferedImage easyLoad(int x, int y) {
+        return sheet.crop(x * width, y * height, width, height);
     }
     
     //spritesheet crop reference
