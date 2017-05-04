@@ -5,9 +5,13 @@
  */
 package amt.main.levels;
 
+import amt.main.Handler;
+import amt.main.entities.Entity;
+import amt.main.entities.Player;
 import amt.main.gfx.Assets;
 import amt.main.tiles.Tile;
 import java.awt.Graphics;
+import java.util.HashSet;
 
 /**
  *
@@ -15,9 +19,12 @@ import java.awt.Graphics;
  */
 public class Level {
     Tile[][] tiles;
+    HashSet<Entity> entities;
     
-    public Level(int width, int height) {
+    public Level(int width, int height, Handler handler) {
          tiles = new Tile[width][height];
+         entities = new HashSet<>();
+         entities.add(new Player(100, 100f, 100f, handler));
     }
     
     public void render(Graphics g) {
@@ -25,6 +32,9 @@ public class Level {
             for (int y = 0; y < tiles[0].length; y++) {
                 tiles[x][y].render(x * Assets.width, y * Assets.height, g);
             }
+        }
+        for (Entity e : entities) {
+            e.render(g);
         }
     }
     
@@ -34,5 +44,9 @@ public class Level {
     
     public Tile getTile(int x, int y) {
         return tiles[x][y];
+    }
+    
+    public void addEntity(Entity entity) {
+        entities.add(entity);
     }
 }

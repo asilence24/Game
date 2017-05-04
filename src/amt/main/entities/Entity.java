@@ -6,6 +6,7 @@
 package amt.main.entities;
 
 import amt.main.Handler;
+import java.awt.Graphics;
 
 /**
  *
@@ -13,7 +14,7 @@ import amt.main.Handler;
  */
 public abstract class Entity {
     
-    private float x, y;
+    protected float x, y;
     private Handler handler;
     
     public Entity(float x, float y, Handler handler) {
@@ -23,7 +24,7 @@ public abstract class Entity {
     
     public abstract void update();
     
-    public abstract void render();
+    public abstract void render(Graphics g);
     
     public float getX() {
         return x;

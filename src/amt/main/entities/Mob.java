@@ -6,6 +6,7 @@
 package amt.main.entities;
 
 import amt.main.Handler;
+import java.awt.Graphics;
 
 /**
  *
@@ -23,5 +24,5 @@ public abstract class Mob extends Entity {
     
     public abstract void update();
     
-    public abstract void render();
+    public abstract void render(Graphics g);
 }

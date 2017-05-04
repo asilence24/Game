@@ -6,6 +6,7 @@
  */
 package amt.main.levels;
 
+import amt.main.Handler;
 import amt.main.tiles.*;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -14,16 +15,16 @@ import java.util.Scanner;
 import javax.imageio.ImageIO;
 
 public class LevelLoader
-{
+{    
     /**
      * Load a level from a .txt and .png file.
      * @param name The name of the level to be loaded. DO NOT INCLUDE .txt or .png.
      * @return The newly read level from the files.
      */
-    public static Level loadLevel(String name) {
+    public static Level loadLevel(String name, Handler handler) {
         try {
             BufferedImage levelPic = ImageIO.read(LevelLoader.class.getResource("/levels/" + name + ".png"));
-            Level newLevel = new Level(levelPic.getWidth(), levelPic.getHeight());
+            Level newLevel = new Level(levelPic.getWidth(), levelPic.getHeight(), handler);
             for (int x = 0; x < levelPic.getWidth(); x++) {
                 for (int y = 0; y < levelPic.getHeight(); y++) {
                     Color pixelColor = new Color(levelPic.getRGB(x, y), true);

@@ -13,7 +13,7 @@ public class GameState extends State{
     
     public GameState(Handler handler){    
         super(handler);
-        level = LevelLoader.loadLevel("test");
+        level = LevelLoader.loadLevel("test", handler);
     }
 
     @Override
