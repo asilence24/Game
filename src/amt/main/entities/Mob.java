@@ -5,6 +5,8 @@
  */
 package amt.main.entities;
 
+import amt.main.Handler;
+
 /**
  *
  * @author mgalan11
@@ -13,7 +15,8 @@ public abstract class Mob extends Entity {
     
     private int health, maxHealth;
     
-    public Mob (int maxHealth) {
+    public Mob (int maxHealth, float x, float y, Handler handler) {
+        super(x, y, handler);
         health = maxHealth;
         this.maxHealth = maxHealth;
     }

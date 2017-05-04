@@ -5,14 +5,16 @@
  */
 package amt.main.entities;
 
+import amt.main.Handler;
+
 /**
  *
  * @author mgalan11
  */
 public class Player extends Mob {
     
-    public Player (int maxHealth) {
-        super(maxHealth);
+    public Player (int maxHealth, float x, float y, Handler handler) {
+        super(maxHealth, x, y, handler);
     }
 
     @Override

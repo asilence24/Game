@@ -5,6 +5,7 @@
  */
 package amt.main.entities;
 
+import amt.main.Handler;
 import amt.main.levels.LevelLoader;
 
 /**
@@ -13,8 +14,8 @@ import amt.main.levels.LevelLoader;
  */
 public class Enemy extends Mob {
     
-    public Enemy() {
-        super(100);
+    public Enemy(float x, float y, Handler handler) {
+        super(100, x, y, handler);
     }
     
     @Override
