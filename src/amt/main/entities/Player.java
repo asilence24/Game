@@ -26,6 +26,6 @@ public class Player extends Mob {
 
     @Override
     public void render(Graphics g) {
-        g.fillRect(100, 100, 100, 100);
+        g.fillRect((int)x * Assets.width, (int)y * Assets.height, Assets.width, Assets.height);
     }
 }

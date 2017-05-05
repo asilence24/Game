@@ -24,7 +24,6 @@ public class Level {
     public Level(int width, int height, Handler handler) {
          tiles = new Tile[width][height];
          entities = new HashSet<>();
-         entities.add(new Player(100, 100f, 100f, handler));
     }
     
     public void render(Graphics g) {

@@ -7,15 +7,17 @@
 package amt.main.levels;
 
 import amt.main.Handler;
+import amt.main.entities.*;
 import amt.main.tiles.*;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
 public class LevelLoader
-{    
+{        
     /**
      * Load a level from a .txt and .png file.
      * @param name The name of the level to be loaded. DO NOT INCLUDE .txt or .png.
@@ -25,27 +27,35 @@ public class LevelLoader
         try {
             BufferedImage levelPic = ImageIO.read(LevelLoader.class.getResource("/levels/" + name + ".png"));
             Level newLevel = new Level(levelPic.getWidth(), levelPic.getHeight(), handler);
+            
             for (int x = 0; x < levelPic.getWidth(); x++) {
                 for (int y = 0; y < levelPic.getHeight(); y++) {
                     Color pixelColor = new Color(levelPic.getRGB(x, y), true);
-                    Tile t;
-                    //PREPROGRAMMED TILE COLOR KEYS HERE:
-                    if (pixelColor.equals(Color.black)) { //Black - Platform
-                        newLevel.setTile(x, y, new Platform());
-                    } else if (pixelColor.equals(Color.white)) { //White - Background
-                        newLevel.setTile(x, y, new Background());
-                    } else { //Color not found, read text file
-                        Scanner s = new Scanner(name + ".txt");
+                    Tile t = tileFromColor(pixelColor);
+                    if (t != null) { //If we alreay know what that color represents
+                        newLevel.setTile(x, y, t);
+                    } else {
+                        File file = new File(LevelLoader.class.getResource("/levels/" + name + ".txt").getFile());
+                        Scanner sc = new Scanner(file);
                         boolean found = false;
-                        while (s.hasNextLine()) {
-                            Color textColor = new Color(s.nextInt(), s.nextInt(), s.nextInt());
+                        while (sc.hasNextLine()) {
+                            //System.out.println(sc.next());
+                            Color textColor = new Color(sc.nextInt(), sc.nextInt(), sc.nextInt());
                             if (pixelColor.equals(textColor)) { //Specification found
                                 //Follow specifications
-                                
                                 found = true;
+                                newLevel.setTile(x, y, tileFromWord(sc.next()));
+                                switch (sc.next()) {
+                                    case "WITH":
+                                        newLevel.addEntity(entityFromWord(sc.next(), x, y, handler));
+                                        break;
+                                    case "LINKED":
+                                        System.err.println("LINKED is not yet supported! Yell at Matt.");
+                                        break;
+                                }
                                 break;
                             } else {
-                                s.nextLine();
+                                sc.nextLine();
                             }
                         }
                         if (!found) { //Couldn't find specification
@@ -62,5 +72,41 @@ public class LevelLoader
             System.exit(1);
         }
         return null;
+    }
+    
+    //Edit tile colors here:
+    private static Tile tileFromColor(Color color) {
+        if (color.equals(Color.black)) {
+            return new Platform();
+        } else if (color.equals(Color.white)) {
+            return new Background();
+        }
+        return null;
+    }
+    
+    //Edit tile keywords (in the text file) here:
+    private static Tile tileFromWord(String word) {
+        switch (word) {
+            case "Platform":
+                return new Platform();
+            case "Background":
+                return new Background();
+            default:
+                System.err.println("LevelLoader doesn't know what Tile \"" + word + "\" is.");
+                return null;
+        }
+    }
+    
+    //Edit entity keywords (in the text file) here:
+    private static Entity entityFromWord(String word, int x, int y, Handler handler) {
+        switch (word) {
+            case "Player":
+                return new Player(100, x, y, handler);
+            case "Enemy":
+                return new Enemy(x, y, handler);
+            default:
+                System.err.println("LevelLoader doesn't know what Entity \"" + word + "\" is.");
+                return null;
+        }
     }
 }
