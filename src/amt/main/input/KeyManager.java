@@ -39,7 +39,7 @@ public class KeyManager implements KeyListener{
     }
     
     public boolean getWPresed(){return wPressed;}
-    public boolean getSPresed(){return dPressed;}
+    public boolean getSPresed(){return sPressed;}
     public boolean getAPresed(){return aPressed;}
     public boolean getDPresed(){return dPressed;}
 }

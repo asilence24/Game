@@ -9,6 +9,7 @@ import amt.main.Handler;
 import amt.main.entities.Entity;
 import amt.main.entities.Player;
 import amt.main.gfx.Assets;
+import amt.main.gfx.Camera;
 import amt.main.tiles.Tile;
 import java.awt.Graphics;
 import java.util.HashSet;
@@ -20,16 +21,26 @@ import java.util.HashSet;
 public class Level {
     Tile[][] tiles;
     HashSet<Entity> entities;
+    private Camera camera;
+    private Player player;
     
     public Level(int width, int height, Handler handler) {
          tiles = new Tile[width][height];
          entities = new HashSet<>();
+         camera = new Camera();
+    }
+    
+    public void update(){
+        camera.updateCamera();
+        for(Entity e: entities){
+            e.update();
+        }
     }
     
     public void render(Graphics g) {
         for (int x = 0; x < tiles.length; x++) {
             for (int y = 0; y < tiles[0].length; y++) {
-                tiles[x][y].render(x * Assets.width, y * Assets.height, g);
+                tiles[x][y].render((int)((x * Assets.width) - camera.xOffset()),(int) ((y * Assets.height) - camera.yOffset()) , g);
             }
         }
         for (Entity e : entities) {
@@ -46,6 +57,10 @@ public class Level {
     }
     
     public void addEntity(Entity entity) {
+        if (entity instanceof Player) {
+            player = (Player) entity;
+            camera.centerOnEntity(player);
+        }
         entities.add(entity);
     }
 }

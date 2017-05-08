@@ -16,7 +16,7 @@ public abstract class Mob extends Entity {
     
     private int health, maxHealth;
     
-    public Mob (int maxHealth, float x, float y, Handler handler) {
+    public Mob (int maxHealth, float speed, float x, float y, Handler handler) {
         super(x, y, handler);
         health = maxHealth;
         this.maxHealth = maxHealth;

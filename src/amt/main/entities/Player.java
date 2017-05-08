@@ -15,13 +15,29 @@ import java.awt.Graphics;
  */
 public class Player extends Mob {
     
-    public Player (int maxHealth, float x, float y, Handler handler) {
-        super(maxHealth, x, y, handler);
+    private Handler handler;
+    private float speed;
+    
+    public Player (int maxHealth, float speed, float x, float y, Handler handler) {
+        super(maxHealth, speed, x, y, handler);
+        this.speed = speed;
+        this.handler = handler;
     }
 
     @Override
     public void update() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(handler.getKeyManager().getWPresed()){
+            y-=speed;
+        }
+        if(handler.getKeyManager().getSPresed()){
+            y+=speed;
+        }
+        if(handler.getKeyManager().getAPresed()){
+            x-=speed;
+        }
+        if(handler.getKeyManager().getDPresed()){
+            x+=speed;
+        }
     }
 
     @Override

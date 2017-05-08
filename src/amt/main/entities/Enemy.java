@@ -15,7 +15,7 @@ import java.awt.Graphics;
 public class Enemy extends Mob {
     
     public Enemy(float x, float y, Handler handler) {
-        super(100, x, y, handler);
+        super(100, 2, x, y, handler);
     }
     
     @Override
