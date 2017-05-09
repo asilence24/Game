@@ -42,6 +42,6 @@ public class Player extends Mob {
 
     @Override
     public void render(Graphics g) {
-        g.fillRect((int)x * Assets.width, (int)y * Assets.height, Assets.width, Assets.height);
+        g.drawImage(Assets.player, (int)((x - handler.getCamera().xOffset()) * Assets.width), (int)((y - handler.getCamera().yOffset()) * Assets.height), null);
     }
 }

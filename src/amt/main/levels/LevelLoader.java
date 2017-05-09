@@ -31,7 +31,7 @@ public class LevelLoader
             for (int x = 0; x < levelPic.getWidth(); x++) {
                 for (int y = 0; y < levelPic.getHeight(); y++) {
                     Color pixelColor = new Color(levelPic.getRGB(x, y), true);
-                    Tile t = tileFromColor(pixelColor);
+                    Tile t = tileFromColor(pixelColor, handler);
                     if (t != null) { //If we alreay know what that color represents
                         newLevel.setTile(x, y, t);
                     } else {
@@ -44,7 +44,7 @@ public class LevelLoader
                             if (pixelColor.equals(textColor)) { //Specification found
                                 //Follow specifications
                                 found = true;
-                                newLevel.setTile(x, y, tileFromWord(sc.next()));
+                                newLevel.setTile(x, y, tileFromWord(sc.next(), handler));
                                 switch (sc.next()) {
                                     case "WITH":
                                         newLevel.addEntity(entityFromWord(sc.next(), x, y, handler));
@@ -75,22 +75,22 @@ public class LevelLoader
     }
     
     //Edit tile colors here:
-    private static Tile tileFromColor(Color color) {
+    private static Tile tileFromColor(Color color, Handler handler) {
         if (color.equals(Color.black)) {
-            return new Platform();
+            return new Platform(handler);
         } else if (color.equals(Color.white)) {
-            return new Background();
+            return new Background(handler);
         }
         return null;
     }
     
     //Edit tile keywords (in the text file) here:
-    private static Tile tileFromWord(String word) {
+    private static Tile tileFromWord(String word, Handler handler) {
         switch (word) {
             case "Platform":
-                return new Platform();
+                return new Platform(handler);
             case "Background":
-                return new Background();
+                return new Background(handler);
             default:
                 System.err.println("LevelLoader doesn't know what Tile \"" + word + "\" is.");
                 return null;
@@ -101,7 +101,7 @@ public class LevelLoader
     private static Entity entityFromWord(String word, int x, int y, Handler handler) {
         switch (word) {
             case "Player":
-                return new Player(100, 4, x, y, handler);
+                return new Player(100, .02f, x, y, handler);
             case "Enemy":
                 return new Enemy(x, y, handler);
             default:

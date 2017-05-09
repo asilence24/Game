@@ -27,20 +27,21 @@ public class Level {
     public Level(int width, int height, Handler handler) {
          tiles = new Tile[width][height];
          entities = new HashSet<>();
-         camera = new Camera();
+         camera = new Camera(handler);
+         handler.setCamera(camera);
     }
     
     public void update(){
-        camera.updateCamera();
         for(Entity e: entities){
             e.update();
         }
+        camera.updateCamera();
     }
     
     public void render(Graphics g) {
         for (int x = 0; x < tiles.length; x++) {
             for (int y = 0; y < tiles[0].length; y++) {
-                tiles[x][y].render((int)((x * Assets.width) - camera.xOffset()),(int) ((y * Assets.height) - camera.yOffset()) , g);
+                tiles[x][y].render(x, y, g);
             }
         }
         for (Entity e : entities) {

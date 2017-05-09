@@ -5,10 +5,15 @@
  */
 package amt.main.tiles;
 
+import amt.main.Handler;
 import amt.main.gfx.Assets;
 import java.awt.Graphics;
 
 public class Platform extends Tile {
+    
+    public Platform(Handler handler) {
+        super(handler);
+    }
     
     @Override
     public boolean isSolid() {
@@ -16,7 +21,7 @@ public class Platform extends Tile {
     }
 
     @Override
-    public void render(int x, int y, Graphics g) {
-        g.drawImage(Assets.platform, x, y, Assets.width, Assets.height, null);
+    public void render(float x, float y, Graphics g) {
+        g.drawImage(Assets.platform, (int)((x - handler.getCamera().xOffset()) * Assets.width), (int)((y - handler.getCamera().yOffset()) * Assets.height), null);
     }
 }

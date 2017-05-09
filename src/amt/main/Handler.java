@@ -1,5 +1,6 @@
 package amt.main;
 
+import amt.main.gfx.Camera;
 import amt.main.input.KeyManager;
 import amt.main.input.MouseManager;
 import amt.main.states.State;
@@ -11,6 +12,7 @@ import amt.main.states.State;
 public class Handler {
     
     private Game game;
+    private Camera camera;
     
     public Handler(Game game){
         this.game = game;
@@ -25,4 +27,6 @@ public class Handler {
     public KeyManager getKeyManager(){return game.getKeyManager();}
     public MouseManager getMouseManager(){return game.getMouseManager();}
     
+    public void setCamera(Camera camera){this.camera = camera;}
+    public Camera getCamera(){return camera;}
 }

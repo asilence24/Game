@@ -22,6 +22,13 @@ public abstract class Mob extends Entity {
         this.maxHealth = maxHealth;
     }
     
+    /**
+     * Generic move method for all entities
+     */
+    public void move(){
+        
+    }
+    
     public abstract void update();
     
     public abstract void render(Graphics g);

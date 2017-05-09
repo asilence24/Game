@@ -11,6 +11,7 @@ public class Assets {
     public static int width=64, height=64;
     
     public static BufferedImage platform, background;
+    public static BufferedImage player;
     
     private static SpriteSheet sheet;
     
@@ -22,6 +23,8 @@ public class Assets {
         
         platform = easyLoad(1, 0);
         background = easyLoad(11, 6);
+        
+        player = easyLoad(5,4);
     }
     
     private static BufferedImage easyLoad(int x, int y) {
