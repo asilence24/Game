@@ -14,6 +14,7 @@ public abstract class State {
     
     public static void setState(State state) {
         currentState = state;
+        currentState.reloadState();
     }
 
     public static State getState() {
@@ -29,4 +30,5 @@ public abstract class State {
 
     public abstract void update();
     public abstract void render(Graphics g);
+    public abstract void reloadState();
 }
