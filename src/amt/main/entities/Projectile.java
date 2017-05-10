@@ -10,7 +10,7 @@ public abstract class Projectile extends Entity {
     protected Direction dir;
     
     public Projectile(float x, float y, float speed, Direction dir, Handler handler) {
-        super(x, y, handler);
+        super(x, y, 64, 64, handler);
         this.speed = speed;
         this.dir = dir;
     }

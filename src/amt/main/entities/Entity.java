@@ -7,6 +7,7 @@ package amt.main.entities;
 
 import amt.main.Handler;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 /**
  *
@@ -15,11 +16,14 @@ import java.awt.Graphics;
 public abstract class Entity {
     
     protected float x, y;
-    private Handler handler;
+    protected Handler handler;
+    protected Rectangle bounds;
     
-    public Entity(float x, float y, Handler handler) {
+    public Entity(float x, float y, int width, int height, Handler handler) {
+        this.handler = handler;
         this.x = x;
         this.y = y;
+        bounds = new Rectangle(0, 0, width, height);
     }
     
     public abstract void update();

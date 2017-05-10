@@ -15,29 +15,30 @@ import java.awt.Graphics;
  */
 public class Player extends Mob {
     
-    private Handler handler;
     private float speed;
     
     public Player (int maxHealth, float speed, float x, float y, Handler handler) {
         super(maxHealth, speed, x, y, handler);
         this.speed = speed;
-        this.handler = handler;
     }
 
     @Override
     public void update() {
+        xMove = 0;
+        yMove = 0;
         if(handler.getKeyManager().getWPresed()){
-            y-=speed;
+            yMove = -speed;
         }
         if(handler.getKeyManager().getSPresed()){
-            y+=speed;
+            yMove = speed;
         }
         if(handler.getKeyManager().getAPresed()){
-            x-=speed;
+            xMove = -speed;
         }
         if(handler.getKeyManager().getDPresed()){
-            x+=speed;
+            xMove = speed;
         }
+        move();
     }
 
     @Override

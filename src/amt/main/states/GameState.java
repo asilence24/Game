@@ -14,6 +14,7 @@ public class GameState extends State{
     public GameState(Handler handler){    
         super(handler);
         level = LevelLoader.loadLevel("test", handler);
+        handler.setLevel(level);
     }
 
     @Override
