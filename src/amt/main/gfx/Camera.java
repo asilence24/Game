@@ -22,8 +22,8 @@ public class Camera {
     }
     
     public void updateCamera(){
-        xOffset = centeredEntity.getX() - handler.getWidth() / Assets.width / 2;
-        yOffset = centeredEntity.getY() - handler.getHeight() / Assets.height / 2;
+        xOffset = centeredEntity.getX() - handler.getWidth() / Assets.tileWidth / 2;
+        yOffset = centeredEntity.getY() - handler.getHeight() / Assets.tileHeight / 2;
     }
     
     public float xOffset(){

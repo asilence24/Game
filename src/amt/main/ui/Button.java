@@ -6,7 +6,6 @@
  */
 package amt.main.ui;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -16,15 +15,15 @@ import amt.main.Handler;
 public class Button {
     
     private Handler handler;
-    private Color texture;
-    private Color highlightTexture;
+    private BufferedImage texture;
+    private BufferedImage highlightTexture;
     private int x,y;
     private int width, height;
     private String text;
     
     private boolean highlighted=false;
     
-    public Button(Handler handler, Color texture, Color highlightTexture, int x, int y, int width, int height, String text){
+    public Button(Handler handler, BufferedImage texture, BufferedImage highlightTexture, int x, int y, int width, int height, String text){
         this.handler = handler;
         this.texture = texture;
         this.highlightTexture = highlightTexture;
@@ -49,12 +48,10 @@ public class Button {
     
     public void render(Graphics g){
         
-        if(highlighted){
-            g.setColor(highlightTexture);
-            g.fillRect(x, y, width, height);
+        if(!highlighted){
+            g.drawImage(texture, x, y, width, height, null);
         } else {
-            g.setColor(texture);
-            g.fillRect(x, y, width, height);
+            g.drawImage(highlightTexture, x, y, width, height, null);
         }
         
         /*

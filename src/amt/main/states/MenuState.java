@@ -1,6 +1,7 @@
 package amt.main.states;
 
 import amt.main.Handler;
+import amt.main.gfx.Assets;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -30,10 +31,10 @@ public class MenuState extends State {
 
         middle = (handler.getWidth() / 2) - (buttonWidth / 2);
 
-        startButton = new Button(handler, Color.black, Color.blue,
+        startButton = new Button(handler, Assets.buttonUp, Assets.buttonDown,
                 middle, (handler.getHeight() / 4) - (buttonHeight / 2), buttonWidth, buttonHeight, "Start Game");
-        closeButton = new Button(handler, Color.green, Color.red,
-                middle, (handler.getHeight() / 2) - (buttonHeight / 2), buttonWidth, buttonHeight, "");
+        closeButton = new Button(handler, Assets.buttonUp, Assets.buttonDown,
+                middle, (handler.getHeight() / 2) - (buttonHeight / 2), buttonWidth, buttonHeight, "Exit");
 
         buttons.add(startButton);
         buttons.add(closeButton);
@@ -68,8 +69,10 @@ public class MenuState extends State {
         //draws text
         g.setFont(new Font("Comic Sans MS", Font.BOLD, 12));
         g.setColor(Color.white);
-
-        g.drawString(startButton.getText(), middle - g.getFontMetrics().stringWidth(startButton.getText()), (handler.getHeight() / 4) - (buttonHeight / 2));
+        
+        g.drawString(startButton.getText(), (handler.getWidth() / 2) - (g.getFontMetrics().stringWidth(startButton.getText()) / 2), (handler.getHeight() / 4));
+        g.drawString(closeButton.getText(), (handler.getWidth() / 2) - (g.getFontMetrics().stringWidth(closeButton.getText()) / 2), (handler.getHeight() / 2));
+        //g.getFontMetrics().stringWidth(startButton.getText())
     }
 
     @Override

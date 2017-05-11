@@ -11,7 +11,7 @@ public class KeyManager implements KeyListener{
     
     private boolean[] holdKeys, tapKeys;
     private boolean wPressed,sPressed,aPressed,dPressed;
-    private boolean escapePressed;
+    public boolean escapePressed=false;
     
     public KeyManager(){
         holdKeys = new boolean[256];
@@ -24,9 +24,6 @@ public class KeyManager implements KeyListener{
         aPressed = holdKeys[KeyEvent.VK_A];
         dPressed = holdKeys[KeyEvent.VK_D];
         escapePressed = tapKeys[KeyEvent.VK_ESCAPE];
-        //for(int i = 0; i < tapKeys.length; i++){
-           // tapKeys[i] = false;
-        //}
     }
     
     @Override
@@ -49,5 +46,4 @@ public class KeyManager implements KeyListener{
     public boolean getSPresed(){return sPressed;}
     public boolean getAPresed(){return aPressed;}
     public boolean getDPresed(){return dPressed;}
-    public boolean getEscapePressed(){return escapePressed;}
 }

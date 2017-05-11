@@ -22,6 +22,6 @@ public class Platform extends Tile {
 
     @Override
     public void render(float x, float y, Graphics g) {
-        g.drawImage(Assets.platform, (int)((x - handler.getCamera().xOffset()) * Assets.width), (int)((y - handler.getCamera().yOffset()) * Assets.height), null);
+        g.drawImage(Assets.platform, (int)((x - handler.getCamera().xOffset()) * Assets.tileWidth), (int)((y - handler.getCamera().yOffset()) * Assets.tileHeight), null);
     }
 }

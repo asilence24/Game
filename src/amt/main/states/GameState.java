@@ -19,6 +19,7 @@ public class GameState extends State{
         super(handler);
         level = LevelLoader.loadLevel("test", handler);
         pauseMenu = new PauseMenu(handler);
+        this.handler = handler;
     }
     
     @Override
@@ -41,7 +42,8 @@ public class GameState extends State{
 
     @Override
     public void reloadState() {
-       paused = false;
+        handler.getKeyManager().escapePressed=false;
+        paused = false;
     }
     
 }
