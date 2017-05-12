@@ -8,7 +8,6 @@ package amt.main.levels;
 import amt.main.Handler;
 import amt.main.entities.Entity;
 import amt.main.entities.Player;
-import amt.main.gfx.Assets;
 import amt.main.gfx.Camera;
 import amt.main.tiles.Tile;
 import java.awt.Graphics;
@@ -57,11 +56,25 @@ public class Level {
         return tiles[x][y];
     }
     
+    public Tile getTile(float x, float y) {
+        return tiles[(int)x][(int)y];
+    }
+    
     public void addEntity(Entity entity) {
         if (entity instanceof Player) {
             player = (Player) entity;
             camera.centerOnEntity(player);
         }
         entities.add(entity);
+    }
+    
+    /** @return The width of the level, in tiles. */
+    public int getWidth() {
+        return tiles.length;
+    }
+    
+    /** @return The height of the level, in tiles. */
+    public int getHeight() {
+        return tiles[0].length;
     }
 }

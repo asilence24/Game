@@ -7,6 +7,7 @@ package amt.main.entities;
 
 import amt.main.Handler;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 /**
  *
@@ -15,7 +16,7 @@ import java.awt.Graphics;
 public class Enemy extends Mob {
     
     public Enemy(float x, float y, Handler handler) {
-        super(100, 2, x, y, handler);
+        super(x, y, 100, 2, new Rectangle(0, 0, 64, 64), handler);
     }
     
     @Override

@@ -6,7 +6,10 @@
 package amt.main.entities;
 
 import amt.main.Handler;
+import amt.main.gfx.Assets;
 import java.awt.Graphics;
+import java.awt.Rectangle;
+import physics.Rigidbody;
 
 /**
  *
@@ -15,18 +18,66 @@ import java.awt.Graphics;
 public abstract class Mob extends Entity {
     
     private int health, maxHealth;
+    protected float xMove, yMove;
+    protected boolean grounded;
+    protected Rigidbody body;
     
-    public Mob (int maxHealth, float speed, float x, float y, Handler handler) {
-        super(x, y, handler);
+    public Mob (float x, float y, int maxHealth, float speed, Rectangle bounds, Handler handler) {
+        super(x, y, bounds, handler);
         health = maxHealth;
+        body = new Rigidbody(50.0);
         this.maxHealth = maxHealth;
     }
     
-    /**
-     * Generic move method for all entities
-     */
     public void move(){
-        
+        body.tick();
+        xMove = body.getX();
+        yMove = body.getY();
+        //Convert bounds coordinates, which are in pixels, to tiles coordinates.
+        float xBound = (float)bounds.x / Assets.tileWidth;
+        float yBound = (float)bounds.y / Assets.tileHeight;
+        float boundWidth = (float)bounds.width / Assets.tileWidth;
+        float boundHeight = (float)bounds.height / Assets.tileHeight;
+        if (xMove > 0) { //Moving right
+            float tempX = x + xMove + xBound + boundWidth;
+            if (!collisionWithTile(tempX, y + yBound) && !collisionWithTile(tempX, y + yBound + boundHeight)) {
+                x += xMove;
+            } else {
+                x = (int)tempX - xBound - boundWidth - .001f;
+            }
+        } else if (xMove < 0) { //Moving left
+            float tempX = x + xMove + xBound;
+            if (!collisionWithTile(tempX, y + yBound) && !collisionWithTile(tempX, y + yBound + boundHeight)) {
+                x += xMove;
+            } else {
+                x = (int)tempX + 1.001f - xBound;
+            }
+        }
+        if (yMove > 0) { //Moving down
+            float tempY = y + yMove + yBound + boundHeight;
+            if (!collisionWithTile(x + xBound, tempY) && !collisionWithTile(x + xBound + boundWidth, tempY)) {
+                y += yMove;
+                grounded = false;
+            } else {
+                y = (int)tempY - yBound - boundHeight - .001f;
+                grounded = true;
+            }
+        } else if (yMove < 0) { //Moving up
+            float tempY = y + yMove + yBound;
+            if (!collisionWithTile(x + xBound, tempY) && !collisionWithTile(x + xBound + boundWidth, tempY)) {
+                y += yMove;
+            } else {
+                y = (int)tempY + 1.001f - yBound;
+            }
+            grounded = false;
+        }
+        if (grounded) {
+            body.resetY();
+        }
+    }
+    
+    protected boolean collisionWithTile(float x, float y) {
+        return handler.getLevel().getTile(x, y).isSolid();
     }
     
     public abstract void update();
