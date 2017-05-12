@@ -34,39 +34,31 @@ public abstract class Mob extends Entity {
             float tempX = x + xMove + xBound + boundWidth;
             if (!collisionWithTile(tempX, y + yBound) && !collisionWithTile(tempX, y + yBound + boundHeight)) {
                 x += xMove;
+            } else {
+                x = (int)tempX - boundWidth - .01f;
             }
         } else if (xMove < 0) { //Moving left
             float tempX = x - xMove + bounds.x;
             if (!collisionWithTile(tempX, y + yBound) && !collisionWithTile(tempX, y + yBound + boundHeight)) {
                 x += xMove;
+            } else {
+                x = (int)tempX + 1.01f - xBound;
             }
         }
         if (yMove > 0) { //Moving down
             float tempY = y + yMove + yBound + boundHeight;
             if (!collisionWithTile(x + xBound, tempY) && !collisionWithTile(x + xBound + boundWidth, tempY)) {
                 y += yMove;
+            } else {
+                y = (int)tempY - boundHeight - .01f;
             }
-            /*
-            int ty = (int) (y + yMove + bounds.y + bounds.height) / Tile.TILEHEIGHT;
-			
-			if(!collisionWithTile((int) (x + bounds.x) / Tile.TILEWIDTH, ty) &&
-					!collisionWithTile((int) (x + bounds.x + bounds.width) / Tile.TILEWIDTH, ty)){
-				y += yMove;
-			}
-            */
         } else if (yMove < 0) { //Moving up
             float tempY = y + yMove + yBound;
             if (!collisionWithTile(x + xBound, tempY) && !collisionWithTile(x + xBound + boundWidth, tempY)) {
                 y += yMove;
+            } else {
+                y = (int)tempY + 1.01f - yBound;
             }
-            /*
-            int ty = (int) (y + yMove + bounds.y) / Tile.TILEHEIGHT;
-			
-			if(!collisionWithTile((int) (x + bounds.x) / Tile.TILEWIDTH, ty) &&
-					!collisionWithTile((int) (x + bounds.x + bounds.width) / Tile.TILEWIDTH, ty)){
-				y += yMove;
-			}
-            */
         }
     }
     
