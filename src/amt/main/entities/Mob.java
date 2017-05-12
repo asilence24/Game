@@ -9,6 +9,7 @@ import amt.main.Handler;
 import amt.main.gfx.Assets;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import physics.Rigidbody;
 
 /**
  *
@@ -18,14 +19,20 @@ public abstract class Mob extends Entity {
     
     private int health, maxHealth;
     protected float xMove, yMove;
+    protected boolean grounded;
+    protected Rigidbody body;
     
     public Mob (float x, float y, int maxHealth, float speed, Rectangle bounds, Handler handler) {
         super(x, y, bounds, handler);
         health = maxHealth;
+        body = new Rigidbody(50.0);
         this.maxHealth = maxHealth;
     }
     
     public void move(){
+        body.tick();
+        xMove = body.getX();
+        yMove = body.getY();
         //Convert bounds coordinates, which are in pixels, to tiles coordinates.
         float xBound = (float)bounds.x / Assets.width;
         float yBound = (float)bounds.y / Assets.height;
@@ -43,15 +50,17 @@ public abstract class Mob extends Entity {
             if (!collisionWithTile(tempX, y + yBound) && !collisionWithTile(tempX, y + yBound + boundHeight)) {
                 x += xMove;
             } else {
-                  x = (int)tempX + 1.001f - xBound;
+                x = (int)tempX + 1.001f - xBound;
             }
         }
         if (yMove > 0) { //Moving down
             float tempY = y + yMove + yBound + boundHeight;
             if (!collisionWithTile(x + xBound, tempY) && !collisionWithTile(x + xBound + boundWidth, tempY)) {
                 y += yMove;
+                grounded = false;
             } else {
-                 y = (int)tempY - yBound - boundHeight - .001f;
+                y = (int)tempY - yBound - boundHeight - .001f;
+                grounded = true;
             }
         } else if (yMove < 0) { //Moving up
             float tempY = y + yMove + yBound;
@@ -60,6 +69,10 @@ public abstract class Mob extends Entity {
             } else {
                 y = (int)tempY + 1.001f - yBound;
             }
+            grounded = false;
+        }
+        if (grounded) {
+            body.resetY();
         }
     }
     

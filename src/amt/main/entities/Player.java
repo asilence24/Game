@@ -10,6 +10,7 @@ import amt.main.gfx.Assets;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import physics.Vector;
 
 /**
  *
@@ -26,27 +27,28 @@ public class Player extends Mob {
 
     @Override
     public void update() {
-        xMove = 0;
-        yMove = 0;
-        if(handler.getKeyManager().getWPresed()){
-            yMove = -speed;
+        //xMove = 0;
+        //yMove = 0;
+        if(handler.getKeyManager().getWPresed() && grounded){
+            body.addForce(new Vector(0.0, -1.0));
+            //yMove = -speed;
         }
         if(handler.getKeyManager().getSPresed()){
-            yMove = speed;
+            //yMove = speed;
         }
         if(handler.getKeyManager().getAPresed()){
-            xMove = -speed;
+            //xMove = -speed;
         }
         if(handler.getKeyManager().getDPresed()){
-            xMove = speed;
+            //xMove = speed;
         }
         move();
     }
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.player, Math.round((x - handler.getCamera().xOffset()) * Assets.width), Math.round((y - handler.getCamera().yOffset()) * Assets.height), Assets.width, Assets.height, null);
+        g.drawImage(Assets.player, (int)((x - handler.getCamera().xOffset()) * Assets.width), (int)((y - handler.getCamera().yOffset()) * Assets.height), Assets.width, Assets.height, null);
         g.setColor(Color.red);
-        g.drawRect(Math.round((x - handler.getCamera().xOffset()) * Assets.width) + bounds.x, Math.round((y - handler.getCamera().yOffset()) * Assets.height) + bounds.y, bounds.width, bounds.height);
+        g.drawRect((int)((x - handler.getCamera().xOffset()) * Assets.width) + bounds.x, (int)((y - handler.getCamera().yOffset()) * Assets.height) + bounds.y, bounds.width, bounds.height);
     }
 }
