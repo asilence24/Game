@@ -7,7 +7,9 @@ package amt.main.entities;
 
 import amt.main.Handler;
 import amt.main.gfx.Assets;
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 /**
  *
@@ -18,7 +20,7 @@ public class Player extends Mob {
     private float speed;
     
     public Player (int maxHealth, float speed, float x, float y, Handler handler) {
-        super(maxHealth, speed, x, y, handler);
+        super(x, y, maxHealth, speed, new Rectangle(10, 5, 44, 52), handler);
         this.speed = speed;
     }
 
@@ -43,7 +45,8 @@ public class Player extends Mob {
 
     @Override
     public void render(Graphics g) {
-        g.fillRect((int)((x - handler.getCamera().xOffset()) * Assets.width), (int)((y - handler.getCamera().yOffset()) * Assets.height), 64, 64);
-        //g.drawImage(Assets.player, (int)((x - handler.getCamera().xOffset()) * Assets.width), (int)((y - handler.getCamera().yOffset()) * Assets.height), null);
+        g.drawImage(Assets.player, Math.round((x - handler.getCamera().xOffset()) * Assets.width), Math.round((y - handler.getCamera().yOffset()) * Assets.height), Assets.width, Assets.height, null);
+        g.setColor(Color.red);
+        g.drawRect(Math.round((x - handler.getCamera().xOffset()) * Assets.width) + bounds.x, Math.round((y - handler.getCamera().yOffset()) * Assets.height) + bounds.y, bounds.width, bounds.height);
     }
 }

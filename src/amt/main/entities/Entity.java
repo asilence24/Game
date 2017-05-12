@@ -19,11 +19,11 @@ public abstract class Entity {
     protected Handler handler;
     protected Rectangle bounds;
     
-    public Entity(float x, float y, int width, int height, Handler handler) {
+    public Entity(float x, float y, Rectangle bounds, Handler handler) {
         this.handler = handler;
         this.x = x;
         this.y = y;
-        bounds = new Rectangle(0, 0, width, height);
+        this.bounds = bounds;
     }
     
     public abstract void update();
