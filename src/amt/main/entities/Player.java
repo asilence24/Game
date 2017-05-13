@@ -27,20 +27,20 @@ public class Player extends Mob {
 
     @Override
     public void update() {
-        //xMove = 0;
+        xMove = 0;
         //yMove = 0;
-        if(handler.getKeyManager().getWPresed() && grounded){
-            body.addForce(new Vector(0.0, -1.0));
+        if(handler.getKeyManager().getWTapped() && onGround()){
+            body.addForce(new Vector(0.0, -3.0));
             //yMove = -speed;
         }
-        if(handler.getKeyManager().getSPresed()){
+        if(handler.getKeyManager().getSPressed()){
             //yMove = speed;
         }
-        if(handler.getKeyManager().getAPresed()){
-            //xMove = -speed;
+        if(handler.getKeyManager().getAPressed()){
+            xMove = -speed;
         }
-        if(handler.getKeyManager().getDPresed()){
-            //xMove = speed;
+        if(handler.getKeyManager().getDPressed()){
+            xMove = speed;
         }
         move();
     }

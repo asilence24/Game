@@ -89,8 +89,8 @@ public class Game extends GameLoop {
      */
     @Override
     public void update() {
-        keyManager.update();
         State.getState().update();
+        keyManager.update();
     }
     
     /**

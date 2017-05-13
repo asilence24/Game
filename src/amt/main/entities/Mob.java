@@ -19,65 +19,70 @@ public abstract class Mob extends Entity {
     
     private int health, maxHealth;
     protected float xMove, yMove;
-    protected boolean grounded;
     protected Rigidbody body;
+    
+    private float xBound, yBound, boundWidth, boundHeight;
     
     public Mob (float x, float y, int maxHealth, float speed, Rectangle bounds, Handler handler) {
         super(x, y, bounds, handler);
         health = maxHealth;
         body = new Rigidbody(50.0);
         this.maxHealth = maxHealth;
+        
+        //Convert bounds coordinates, which are in pixels, to tiles coordinates.
+        xBound = (float)bounds.x / Assets.tileWidth;
+        yBound = (float)bounds.y / Assets.tileHeight;
+        boundWidth = (float)bounds.width / Assets.tileWidth;
+        boundHeight = (float)bounds.height / Assets.tileHeight;
     }
     
     public void move(){
         body.tick();
-        xMove = body.getX();
-        yMove = body.getY();
-        //Convert bounds coordinates, which are in pixels, to tiles coordinates.
-        float xBound = (float)bounds.x / Assets.tileWidth;
-        float yBound = (float)bounds.y / Assets.tileHeight;
-        float boundWidth = (float)bounds.width / Assets.tileWidth;
-        float boundHeight = (float)bounds.height / Assets.tileHeight;
-        if (xMove > 0) { //Moving right
-            float tempX = x + xMove + xBound + boundWidth;
+        float deltaX = xMove + body.getX();
+        float deltaY = yMove + body.getY();
+        if (deltaX > 0) { //Moving right
+            float tempX = x + deltaX + xBound + boundWidth;
             if (!collisionWithTile(tempX, y + yBound) && !collisionWithTile(tempX, y + yBound + boundHeight)) {
-                x += xMove;
+                x += deltaX;
             } else {
-                x = (int)tempX - xBound - boundWidth - .001f;
+                x = (int)tempX - xBound - boundWidth - .00001f;
             }
-        } else if (xMove < 0) { //Moving left
-            float tempX = x + xMove + xBound;
+        } else if (deltaX < 0) { //Moving left
+            float tempX = x + deltaX + xBound;
             if (!collisionWithTile(tempX, y + yBound) && !collisionWithTile(tempX, y + yBound + boundHeight)) {
-                x += xMove;
+                x += deltaX;
             } else {
-                x = (int)tempX + 1.001f - xBound;
+                x = (int)tempX + 1.00001f - xBound;
             }
         }
-        if (yMove > 0) { //Moving down
-            float tempY = y + yMove + yBound + boundHeight;
+        if (deltaY > 0) { //Moving down
+            float tempY = y + deltaY + yBound + boundHeight;
             if (!collisionWithTile(x + xBound, tempY) && !collisionWithTile(x + xBound + boundWidth, tempY)) {
-                y += yMove;
-                grounded = false;
+                y += deltaY;
             } else {
-                y = (int)tempY - yBound - boundHeight - .001f;
-                grounded = true;
+                y = (int)tempY - yBound - boundHeight - .00001f;
+                body.resetY();
             }
-        } else if (yMove < 0) { //Moving up
-            float tempY = y + yMove + yBound;
+        } else if (deltaY < 0) { //Moving up
+            float tempY = y + deltaY + yBound;
             if (!collisionWithTile(x + xBound, tempY) && !collisionWithTile(x + xBound + boundWidth, tempY)) {
-                y += yMove;
+                y += deltaY;
             } else {
-                y = (int)tempY + 1.001f - yBound;
+                y = (int)tempY + 1.00001f - yBound;
+                body.resetY();
             }
-            grounded = false;
-        }
-        if (grounded) {
-            body.resetY();
         }
     }
     
     protected boolean collisionWithTile(float x, float y) {
         return handler.getLevel().getTile(x, y).isSolid();
+    }
+    
+    /**
+     * @return If the block .00001 tiles beneath the entity is solid.
+     */
+    protected boolean onGround() {
+        return collisionWithTile(x + xBound, y + yBound + boundHeight + .00001f) || collisionWithTile(x + xBound + boundWidth, y + yBound + boundHeight + .00001f);
     }
     
     public abstract void update();

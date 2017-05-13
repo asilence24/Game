@@ -2,7 +2,7 @@ package physics;
 
 public class Rigidbody {
     
-    private final static double GRAV_ACCEL = .0003f;
+    private final static double GRAV_ACCEL = .001f;
     
     private double mass;
     private Vector netForce, acceleration, velocity;
@@ -42,12 +42,14 @@ public class Rigidbody {
      */
     public void resetX() {
         netForce.setX(0);
+        velocity.setX(0);
     }
     
     /**
      * Set the vertical velocity to 0.
      */
     public void resetY() {
-        netForce.setX(0);
+        netForce.setY(0);
+        velocity.setY(0);
     }
 }

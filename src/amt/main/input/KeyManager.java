@@ -9,21 +9,17 @@ import java.awt.event.KeyListener;
  */
 public class KeyManager implements KeyListener{
     
-    private boolean[] holdKeys, tapKeys;
-    private boolean wPressed,sPressed,aPressed,dPressed;
+    private boolean[] oldKeys, curKeys;
     public boolean escapePressed=false;
     
     public KeyManager(){
-        holdKeys = new boolean[256];
-        tapKeys = new boolean[256];
+        oldKeys = new boolean[256];
+        curKeys = new boolean[256];
     }
     
     public void update(){
-        wPressed = holdKeys[KeyEvent.VK_W];
-        sPressed = holdKeys[KeyEvent.VK_S];
-        aPressed = holdKeys[KeyEvent.VK_A];
-        dPressed = holdKeys[KeyEvent.VK_D];
-        escapePressed = tapKeys[KeyEvent.VK_ESCAPE];
+        oldKeys = curKeys.clone();
+        escapePressed = curKeys[KeyEvent.VK_ESCAPE];
     }
     
     @Override
@@ -33,17 +29,31 @@ public class KeyManager implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        holdKeys[e.getKeyCode()] = true;
-        tapKeys[e.getKeyCode()] = !tapKeys[e.getKeyCode()];
+        curKeys[e.getKeyCode()] = true;
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        holdKeys[e.getKeyCode()] = false;
+        curKeys[e.getKeyCode()] = false;
     }
     
-    public boolean getWPresed(){return wPressed;}
-    public boolean getSPresed(){return sPressed;}
-    public boolean getAPresed(){return aPressed;}
-    public boolean getDPresed(){return dPressed;}
+    public boolean getWPressed(){return curKeys[KeyEvent.VK_W];}
+    public boolean getWTapped() {
+        return curKeys[KeyEvent.VK_W] && curKeys[KeyEvent.VK_W] != oldKeys[KeyEvent.VK_W];
+    }
+    
+    public boolean getAPressed(){return curKeys[KeyEvent.VK_A];}
+    public boolean getATapped() {
+        return curKeys[KeyEvent.VK_A] && curKeys[KeyEvent.VK_A] != oldKeys[KeyEvent.VK_A];
+    }
+    
+    public boolean getSPressed(){return curKeys[KeyEvent.VK_S];}
+    public boolean getSTapped() {
+        return curKeys[KeyEvent.VK_S] && curKeys[KeyEvent.VK_S] != oldKeys[KeyEvent.VK_S];
+    }
+    
+    public boolean getDPressed(){return curKeys[KeyEvent.VK_D];}
+    public boolean getDTapped() {
+        return curKeys[KeyEvent.VK_D] && curKeys[KeyEvent.VK_D] != oldKeys[KeyEvent.VK_D];
+    }
 }
