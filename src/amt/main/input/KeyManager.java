@@ -19,7 +19,6 @@ public class KeyManager implements KeyListener{
     
     public void update(){
         oldKeys = curKeys.clone();
-        escapePressed = curKeys[KeyEvent.VK_ESCAPE];
     }
     
     @Override
@@ -30,6 +29,9 @@ public class KeyManager implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         curKeys[e.getKeyCode()] = true;
+        if(e.getKeyCode()==KeyEvent.VK_ESCAPE){
+            escapePressed=!escapePressed;
+        }
     }
 
     @Override

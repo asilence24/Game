@@ -2,7 +2,6 @@ package amt.main.entities;
 
 import amt.main.Handler;
 import amt.main.gfx.Assets;
-import amt.main.ui.IconBar;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
