@@ -12,6 +12,7 @@ import amt.main.gfx.Camera;
 import amt.main.tiles.Tile;
 import java.awt.Graphics;
 import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  *
@@ -31,8 +32,14 @@ public class Level {
     }
     
     public void update(){
-        for(Entity e: entities){
-            e.update();
+        Iterator itr = entities.iterator();
+        while (itr.hasNext()) {
+            Entity e = (Entity)itr.next();
+            if (e.destroy()) { //Delete entity if it's marked to be destroyed
+                itr.remove();
+            } else {
+                e.update();
+            }
         }
         camera.updateCamera();
     }

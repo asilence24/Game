@@ -1,34 +1,39 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package amt.main.entities;
 
 import amt.main.Handler;
+import amt.main.gfx.Assets;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-/**
- *
- * @author mgalan11
- */
 public abstract class Entity {
     
     protected float x, y;
     protected Handler handler;
     protected Rectangle bounds;
+    protected boolean destroy = false; //If true, the level will remove this from the entity list ASAP.
+    
+    protected float xBound, yBound, boundWidth, boundHeight;
     
     public Entity(float x, float y, Rectangle bounds, Handler handler) {
         this.handler = handler;
         this.x = x;
         this.y = y;
         this.bounds = bounds;
+        
+        //Convert bounds coordinates, which are in pixels, to tiles coordinates.
+        xBound = (float)bounds.x / Assets.tileWidth;
+        yBound = (float)bounds.y / Assets.tileHeight;
+        boundWidth = (float)bounds.width / Assets.tileWidth;
+        boundHeight = (float)bounds.height / Assets.tileHeight;
     }
     
     public abstract void update();
     
     public abstract void render(Graphics g);
+    
+    protected boolean collisionWithTile(float x, float y) {
+        return handler.getLevel().getTile(x, y).isSolid();
+    }
     
     public float getX() {
         return x;
@@ -36,5 +41,9 @@ public abstract class Entity {
     
     public float getY() {
         return y;
+    }
+    
+    public boolean destroy() {
+        return destroy;
     }
 }

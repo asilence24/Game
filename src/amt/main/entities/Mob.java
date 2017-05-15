@@ -1,39 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package amt.main.entities;
 
 import amt.main.Handler;
-import amt.main.gfx.Assets;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import physics.Rigidbody;
 
-/**
- *
- * @author mgalan11
- */
 public abstract class Mob extends Entity {
     
     private int health, maxHealth;
     protected float xMove, yMove;
     protected Rigidbody body;
     
-    private float xBound, yBound, boundWidth, boundHeight;
-    
     public Mob (float x, float y, int maxHealth, float speed, Rectangle bounds, Handler handler) {
         super(x, y, bounds, handler);
         health = maxHealth;
         body = new Rigidbody(50.0);
-        this.maxHealth = maxHealth;
-        
-        //Convert bounds coordinates, which are in pixels, to tiles coordinates.
-        xBound = (float)bounds.x / Assets.tileWidth;
-        yBound = (float)bounds.y / Assets.tileHeight;
-        boundWidth = (float)bounds.width / Assets.tileWidth;
-        boundHeight = (float)bounds.height / Assets.tileHeight;
+        this.maxHealth = maxHealth; 
     }
     
     public void move(){
@@ -73,11 +55,7 @@ public abstract class Mob extends Entity {
             }
         }
     }
-    
-    protected boolean collisionWithTile(float x, float y) {
-        return handler.getLevel().getTile(x, y).isSolid();
-    }
-    
+
     /**
      * @return If the block .00001 tiles beneath the entity is solid.
      */

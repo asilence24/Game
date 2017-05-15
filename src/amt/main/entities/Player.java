@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package amt.main.entities;
 
 import amt.main.Handler;
@@ -12,10 +7,6 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import physics.Vector;
 
-/**
- *
- * @author mgalan11
- */
 public class Player extends Mob {
     
     private float speed;
@@ -24,13 +15,13 @@ public class Player extends Mob {
         super(x, y, maxHealth, speed, new Rectangle(10, 5, 44, 52), handler);
         this.speed = speed;
     }
-
+    
     @Override
     public void update() {
         xMove = 0;
         //yMove = 0;
         if(handler.getKeyManager().getWTapped() && onGround()){
-            body.addForce(new Vector(0.0, -3.0));
+            body.addForce(new Vector(0.0, -5.0));
             //yMove = -speed;
         }
         if(handler.getKeyManager().getSPressed()){
