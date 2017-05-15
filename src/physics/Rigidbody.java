@@ -2,7 +2,7 @@ package physics;
 
 public class Rigidbody {
     
-    private final static double GRAV_ACCEL = .002f;
+    private final static double GRAV_ACCEL = .022f;
     
     private double mass;
     private Vector netForce, acceleration, velocity;

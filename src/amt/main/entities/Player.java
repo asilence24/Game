@@ -2,6 +2,7 @@ package amt.main.entities;
 
 import amt.main.Handler;
 import amt.main.gfx.Assets;
+import amt.main.ui.IconBar;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -21,7 +22,7 @@ public class Player extends Mob {
         xMove = 0;
         //yMove = 0;
         if(handler.getKeyManager().getWTapped() && onGround()){
-            body.addForce(new Vector(0.0, -5.0));
+            body.addForce(new Vector(0.0, -25.0));
             //yMove = -speed;
         }
         if(handler.getKeyManager().getSPressed()){
