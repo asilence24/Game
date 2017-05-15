@@ -20,27 +20,29 @@ import java.util.Iterator;
  */
 public class Level {
     Tile[][] tiles;
-    HashSet<Entity> entities;
+    HashSet<Entity> entities, oldEntities, newEntities;
     private Camera camera;
     private Player player;
     
     public Level(int width, int height, Handler handler) {
-         tiles = new Tile[width][height];
-         entities = new HashSet<>();
-         camera = new Camera(handler);
-         handler.setCamera(camera);
+        tiles = new Tile[width][height];
+        entities = new HashSet<>();
+        oldEntities = new HashSet<>();
+        newEntities = new HashSet<>();
+        camera = new Camera(handler);
+        handler.setCamera(camera);
     }
     
     public void update(){
-        Iterator itr = entities.iterator();
-        while (itr.hasNext()) {
-            Entity e = (Entity)itr.next();
-            if (e.destroy()) { //Delete entity if it's marked to be destroyed
-                itr.remove();
-            } else {
-                e.update();
-            }
+        entities.addAll(newEntities);
+        newEntities.clear();
+        for (Entity e : entities) {
+            e.update();
+            if (e.destroy())
+                oldEntities.add(e);
         }
+        entities.removeAll(oldEntities);
+        oldEntities.clear();
         camera.updateCamera();
     }
     
@@ -72,7 +74,7 @@ public class Level {
             player = (Player) entity;
             camera.centerOnEntity(player);
         }
-        entities.add(entity);
+        newEntities.add(entity);
     }
     
     /** @return The width of the level, in tiles. */

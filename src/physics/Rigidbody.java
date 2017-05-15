@@ -1,55 +1,57 @@
 package physics;
 
+import java.util.HashSet;
+
 public class Rigidbody {
     
-    private final static double GRAV_ACCEL = .022f;
+    private HashSet<Force> forces, doneForces;
     
-    private double mass;
-    private Vector netForce, acceleration, velocity;
-    
-    public Rigidbody(double mass) {
-        this.mass = mass;
-        netForce = new Vector(0, 0);
-        velocity = new Vector(0, 0);
+    public Rigidbody() {
+        forces = new HashSet<>();
+        doneForces = new HashSet<>();
     }
     
-    public void tick() {
-        netForce.add(new Vector(0, GRAV_ACCEL * mass)); //Add the force of gravity
-        acceleration = netForce.divide(mass);
-        velocity.add(acceleration.divide(60));
+    public void update() {
+        for (Force f : forces) {
+            if (f.done())
+                doneForces.add(f);
+        }
+        forces.removeAll(doneForces);
+        doneForces.clear();
+        for (Force f : forces) {
+            f.update();
+        }
     }
     
-    public void addForce(Vector force) {
-        netForce.add(force);
+    public void addForce(Force force) {
+        forces.add(force);
     }
     
-    /**
-     * @return The horizontal distance moved since last tick.
-     */
     public float getX() {
-        return (float)velocity.getX();
+        float sum = 0;
+        for (Force f : forces) {
+            sum += f.getX();
+        }
+        return sum;
     }
     
-    /**
-     * @return The vertical distance moved since last tick.
-     */
     public float getY() {
-        return (float)velocity.getY();
+        float sum = 0;
+        for (Force f : forces) {
+            sum += f.getY();
+        }
+        return sum + .1f;
     }
     
-    /**
-     * Set the horizontal velocity to 0.
-     */
     public void resetX() {
-        netForce.setX(0);
-        velocity.setX(0);
+        for (Force f : forces) {
+            f.resetX();
+        }
     }
     
-    /**
-     * Set the vertical velocity to 0.
-     */
     public void resetY() {
-        netForce.setY(0);
-        velocity.setY(0);
+        for (Force f : forces) {
+            f.resetY();
+        }
     }
 }

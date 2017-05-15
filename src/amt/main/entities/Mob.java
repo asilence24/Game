@@ -14,12 +14,12 @@ public abstract class Mob extends Entity {
     public Mob (float x, float y, int maxHealth, float speed, Rectangle bounds, Handler handler) {
         super(x, y, bounds, handler);
         health = maxHealth;
-        body = new Rigidbody(50.0);
+        body = new Rigidbody();
         this.maxHealth = maxHealth; 
     }
     
     public void move(){
-        body.tick();
+        body.update();
         float deltaX = xMove + body.getX();
         float deltaY = yMove + body.getY();
         if (deltaX > 0) { //Moving right

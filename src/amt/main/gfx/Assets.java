@@ -31,7 +31,7 @@ public class Assets {
         platform = easyLoad(1, 0);
         background = easyLoad(11, 6);
         
-        player = easyLoad(5,4);
+        player = easyLoad(0,4);
         
         //buttonsheet
         buttonSheet = new SpriteSheet(ImageLoader.loadImage("/textures/blueSheet.png"));
