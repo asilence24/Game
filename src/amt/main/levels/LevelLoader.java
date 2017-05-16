@@ -102,8 +102,8 @@ public class LevelLoader
         switch (word) {
             case "Player":
                 return new Player(100, .06f, x, y, handler);
-            case "Enemy":
-                return new Enemy(x, y, handler);
+            case "Turret":
+                return new Turret(x, y, handler);
             default:
                 System.err.println("LevelLoader doesn't know what Entity \"" + word + "\" is.");
                 return null;

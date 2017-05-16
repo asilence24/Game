@@ -86,4 +86,8 @@ public class Level {
     public int getHeight() {
         return tiles[0].length;
     }
+    
+    public Player getPlayer() {
+        return player;
+    }
 }
