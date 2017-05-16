@@ -47,25 +47,27 @@ public class Player extends Mob {
     }
     
     private void attacks(){
-        if (handler.getKeyManager().getUpTapped()) {
-            handler.getLevel().addEntity(new PlayerBullet(x, y, 0f, -.2f, handler));
-            body.addForce(new Force(0f, knockBack, knockBackTime));
-            curBullets--;
-        }
-        if (handler.getKeyManager().getDownTapped()) {
-            handler.getLevel().addEntity(new PlayerBullet(x, y, 0f, .2f, handler));
-            body.addForce(new Force(0f, -knockBack, knockBackTime));
-            curBullets--;
-        }
-        if (handler.getKeyManager().getLeftTapped()) {
-            handler.getLevel().addEntity(new PlayerBullet(x, y, -.2f, 0f, handler));
-            body.addForce(new Force(knockBack, 0f, knockBackTime));
-            curBullets--;
-        }
-        if (handler.getKeyManager().getRightTapped()) {
-            handler.getLevel().addEntity(new PlayerBullet(x, y, .2f, 0f, handler));
-            body.addForce(new Force(-knockBack, 0f, knockBackTime));
-            curBullets--;
+        if (curBullets > 0) {
+            if (handler.getKeyManager().getUpTapped()) {
+                handler.getLevel().addEntity(new PlayerBullet(x, y, 0f, -.2f, handler));
+                body.addForce(new Force(0f, knockBack, knockBackTime));
+                curBullets--;
+            }
+            if (handler.getKeyManager().getDownTapped()) {
+                handler.getLevel().addEntity(new PlayerBullet(x, y, 0f, .2f, handler));
+                body.addForce(new Force(0f, -knockBack, knockBackTime));
+                curBullets--;
+            }
+            if (handler.getKeyManager().getLeftTapped()) {
+                handler.getLevel().addEntity(new PlayerBullet(x, y, -.2f, 0f, handler));
+                body.addForce(new Force(knockBack, 0f, knockBackTime));
+                curBullets--;
+            }
+            if (handler.getKeyManager().getRightTapped()) {
+                handler.getLevel().addEntity(new PlayerBullet(x, y, .2f, 0f, handler));
+                body.addForce(new Force(-knockBack, 0f, knockBackTime));
+                curBullets--;
+            }
         }
     }
     
