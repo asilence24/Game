@@ -78,4 +78,9 @@ public class KeyManager implements KeyListener{
     public boolean getRightTapped() {
         return curKeys[KeyEvent.VK_RIGHT] && curKeys[KeyEvent.VK_RIGHT] != oldKeys[KeyEvent.VK_RIGHT];
     }
+    
+    public boolean getSpacePressed(){return curKeys[KeyEvent.VK_SPACE];}
+    public boolean getSpaceTapped() {
+        return curKeys[KeyEvent.VK_SPACE] && curKeys[KeyEvent.VK_SPACE] != oldKeys[KeyEvent.VK_SPACE];
+    }
 }
