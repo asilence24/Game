@@ -8,11 +8,7 @@ package amt.main.entities;
 import amt.main.Handler;
 import amt.main.gfx.Assets;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Rectangle;
-import java.awt.geom.AffineTransform;
-import static java.util.function.IntUnaryOperator.identity;
 
 /**
  *
@@ -20,6 +16,10 @@ import static java.util.function.IntUnaryOperator.identity;
  */
 public class Turret extends Mob {
 
+    private static final float RANGE = 10f;
+    //private static final float FIRE_RATE = 120;
+    private long fireTimer, lastFire = fireTimer, fireRate= 100;
+    
     public Turret(float x, float y, Handler handler) {
         super(x, y, 100, 0, new Rectangle(0, 0, 64, 64), handler);
     }
@@ -44,6 +44,19 @@ public class Turret extends Mob {
         int playerX = (int)((handler.getLevel().getPlayer().getX() - handler.getCamera().xOffset()) * Assets.tileWidth);
         int playerY = (int)((handler.getLevel().getPlayer().getY() - handler.getCamera().yOffset()) * Assets.tileHeight);
         g.drawImage(Assets.turret, myX, myY, Assets.tileWidth, Assets.tileHeight, null);
-        g.drawLine(myX, myY, playerX, playerY);
+        float distance = (float)Math.hypot(handler.getLevel().getPlayer().getX() - x, handler.getLevel().getPlayer().getY() - y);
+        
+        fireTimer = System.currentTimeMillis()-lastFire;
+        lastFire = System.currentTimeMillis();
+        
+        if (distance < RANGE && //Make sure player's in range
+                handler.getLevel().raycast(x, y, handler.getLevel().getPlayer().getX(), handler.getLevel().getPlayer().getY())) { //And we have line of sight
+            g.drawLine(myX, myY, playerX, playerY); //Draw the aiming laser.
+            
+            if (fireTimer > fireRate) {
+                handler.getLevel().addEntity(new TurretBullet(x, y, .01f * (handler.getLevel().getPlayer().getX() - x) / distance, .01f * (handler.getLevel().getPlayer().getY() - y) / distance, handler));
+                fireTimer = 0;
+            }
+        }
     }
 }

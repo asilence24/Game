@@ -57,6 +57,29 @@ public class Level {
         }
     }
     
+    /**
+     * Cast a ray between two points to see if the path of the line is clear.
+     * @param x1 The x coordinate of the first target.
+     * @param y1 The y coordinate of the first target.
+     * @param x2 The x coordinate of the second target.
+     * @param y2 The y coordinate of the second target.
+     * @return True if the raycast successfully connected the points. (No obstruction). False otherwise.
+     */
+    public boolean raycast(float x1, float y1, float x2, float y2) {
+        float length = (float)Math.hypot(x1 - x2, y1 - y2);
+        int checks = (int)(length / .1f);
+        float xStep = (x2 - x1) / checks;
+        float yStep = (y2 - y1) / checks;
+        for (int i = 0; i < checks; i++) {
+            if (getTile(x1, y1).isSolid()) {
+                return false;
+            }
+            x1 += xStep;
+            y1 += yStep;
+        }
+        return true;
+    }
+    
     public void setTile(int x, int y, Tile tile) {
         tiles[x][y] = tile;
     }
