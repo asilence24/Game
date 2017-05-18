@@ -17,7 +17,7 @@ import java.awt.Rectangle;
 public class TurretBullet extends Projectile {
     
     public TurretBullet(float x, float y, float xMove, float yMove, Handler handler) {
-        super(x, y, xMove, yMove, new Rectangle(0, 0, 64, 64), handler);
+        super(x, y, xMove, yMove, new Rectangle(20, 20, 20, 20), handler);
     }
     
     @Override
