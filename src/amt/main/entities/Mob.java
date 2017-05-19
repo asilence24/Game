@@ -3,7 +3,7 @@ package amt.main.entities;
 import amt.main.Handler;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import physics.Rigidbody;
+import amt.main.util.Rigidbody;
 
 public abstract class Mob extends Entity {
     

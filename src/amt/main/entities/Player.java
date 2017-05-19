@@ -2,10 +2,9 @@ package amt.main.entities;
 
 import amt.main.Handler;
 import amt.main.gfx.Assets;
-import java.awt.Color;
+import amt.main.util.Force;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import physics.Force;
 
 public class Player extends Mob {
     

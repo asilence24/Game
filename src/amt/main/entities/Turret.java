@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package amt.main.entities;
 
 import amt.main.Handler;
@@ -11,20 +6,16 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-/**
- *
- * @author mgalan11
- */
 public class Turret extends Mob {
-
-    private static final float RANGE = 10f;
-    private long fireRate = 1500; //Milliseconds between shooting
-    private long warningTime = 500; //Seconds before shooting that the laser stops tracking the player
+    //Stuff you might want to tweak:
+    private static final float RANGE = 10f; //Range, in blocks, that the turret can detect the player
+    private static final long FIRE_RATE = 1500;           //Milliseconds between shooting
+    private static final long WARNING_TIME = 500;         //Milliseconds before shooting that the laser stops tracking the player
+    //Stuff you don't need to touch:
     private long lastFire, timeSinceLastShot;
-    private boolean tracking = true, loaded, shooting;
-    private float shotDirX, shotDirY;
+    private boolean loaded, shooting, seen;
     private float lastKnownX, lastKnownY;
-    private Color laserColor;
+    private Color laserColor, indicatorColor;
 
     public Turret(float x, float y, Handler handler) {
         super(x, y, 100, 0, new Rectangle(0, 0, 64, 64), handler);
@@ -32,27 +23,14 @@ public class Turret extends Mob {
 
     @Override
     public void update() {
-
-    }
-
-    @Override
-    public void render(Graphics g) {
-        /*
-        Graphics2D g2d = (Graphics2D) g; // Create a Java2D version of g.
-        g2d.translate((int)((x - handler.getCamera().xOffset()) * Assets.tileWidth), (int)((y - handler.getCamera().yOffset()) * Assets.tileHeight));
-        g2d.rotate(1);  // Rotate the image by 1 radian.
-        g2d.drawImage(Assets.turret, 0, 0, Assets.tileWidth, Assets.tileHeight, null);
-        g2d.rotate(-1);
-        g2d.translate(-(int)((x - handler.getCamera().xOffset()) * Assets.tileWidth), -(int)((y - handler.getCamera().yOffset()) * Assets.tileHeight));
-         */
-
         float distance = (float) Math.hypot(handler.getLevel().getPlayer().getCenterX() - getCenterX(), handler.getLevel().getPlayer().getCenterY() - getCenterY());
         timeSinceLastShot = System.currentTimeMillis() - lastFire;
-        if (timeSinceLastShot > fireRate) {
+        if (timeSinceLastShot > FIRE_RATE) {
             loaded = true;
         }
         //We can see the player
         if (distance < RANGE && handler.getLevel().raycast(getCenterX(), getCenterY(), handler.getLevel().getPlayer().getCenterX(), handler.getLevel().getPlayer().getCenterY())) {
+            seen = true;
             laserColor = Color.RED;
             if (!shooting) {
                 //Update our known location of him
@@ -60,34 +38,55 @@ public class Turret extends Mob {
                 lastKnownY = handler.getLevel().getPlayer().getCenterY();
             }
             //If we're within the warning time - begin firing
-            if (timeSinceLastShot > fireRate - warningTime) {
+            if (timeSinceLastShot > FIRE_RATE - WARNING_TIME) {
                 laserColor = Color.ORANGE;
-                tracking = false;
                 shooting = true;
-            }
-            g.setColor(laserColor);
-            g.drawLine((int) ((getCenterX() - handler.getCamera().xOffset()) * Assets.tileWidth),
-                    (int) ((getCenterY() - handler.getCamera().yOffset()) * Assets.tileHeight),
-                    (int) ((lastKnownX - handler.getCamera().xOffset()) * Assets.tileWidth),
-                    (int) ((lastKnownY - handler.getCamera().yOffset()) * Assets.tileHeight));
+            }   
+        } else {
+            seen = false;
         }
         if (loaded && shooting) {
+            //Actually shoot
             float lastDistance = (float) Math.hypot(lastKnownX - x, lastKnownY - y);
             handler.getLevel().addEntity(new TurretBullet(x, y, .1f * (lastKnownX - x) / lastDistance, .1f * (lastKnownY - y) / lastDistance, handler));
             lastFire = System.currentTimeMillis();
             shooting = false;
             loaded = false;
         }
-        g.drawImage(Assets.turret, (int) ((getX() - handler.getCamera().xOffset()) * Assets.tileWidth),
-                (int) ((getY() - handler.getCamera().yOffset()) * Assets.tileHeight), Assets.tileWidth, Assets.tileHeight, null);
         if (loaded) {
-            g.setColor(Color.GREEN);
+            indicatorColor = Color.GREEN;
         } else {
-            g.setColor(Color.DARK_GRAY);
+            indicatorColor = Color.DARK_GRAY;
         }
         if (shooting) {
-            g.setColor(Color.ORANGE);
+            laserColor = Color.ORANGE;
+            indicatorColor = Color.ORANGE;
+        }   
+    }
+
+    @Override
+    public void render(Graphics g) {
+        /* Image rotation code:
+        Graphics2D g2d = (Graphics2D) g; // Create a Java2D version of g.
+        g2d.translate((int)((x - handler.getCamera().xOffset()) * Assets.tileWidth), (int)((y - handler.getCamera().yOffset()) * Assets.tileHeight));
+        g2d.rotate(1);  // Rotate the image by 1 radian.
+        g2d.drawImage(Assets.turret, 0, 0, Assets.tileWidth, Assets.tileHeight, null);
+        g2d.rotate(-1);
+        g2d.translate(-(int)((x - handler.getCamera().xOffset()) * Assets.tileWidth), -(int)((y - handler.getCamera().yOffset()) * Assets.tileHeight));
+         */
+        if (seen || shooting) {
+            //Draw the laser
+            g.setColor(laserColor);
+            g.drawLine((int) ((getCenterX() - handler.getCamera().xOffset()) * Assets.tileWidth),
+                    (int) ((getCenterY() - handler.getCamera().yOffset()) * Assets.tileHeight),
+                    (int) ((lastKnownX - handler.getCamera().xOffset()) * Assets.tileWidth),
+                    (int) ((lastKnownY - handler.getCamera().yOffset()) * Assets.tileHeight));
         }
+        //Draw the turret
+        g.drawImage(Assets.turret, (int) ((getX() - handler.getCamera().xOffset()) * Assets.tileWidth),
+                (int) ((getY() - handler.getCamera().yOffset()) * Assets.tileHeight), Assets.tileWidth, Assets.tileHeight, null);
+        //Draw the indicator light
+        g.setColor(indicatorColor);
         g.fillRect((int) ((getX() - handler.getCamera().xOffset()) * Assets.tileWidth), (int) ((getY() - handler.getCamera().yOffset()) * Assets.tileHeight), 15, 15);
     }
 }
