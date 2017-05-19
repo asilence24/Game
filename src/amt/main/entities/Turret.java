@@ -21,18 +21,18 @@ public class Turret extends Mob {
     private long fireRate = 1500; //Milliseconds between shooting
     private long warningTime = 500; //Seconds before shooting that the laser stops tracking the player
     private long lastFire, timeSinceLastShot;
-    private boolean tracking = true;
+    private boolean tracking = true, loaded, shooting;
     private float shotDirX, shotDirY;
     private float lastKnownX, lastKnownY;
     private Color laserColor;
-    
+
     public Turret(float x, float y, Handler handler) {
         super(x, y, 100, 0, new Rectangle(0, 0, 64, 64), handler);
     }
 
     @Override
     public void update() {
-        
+
     }
 
     @Override
@@ -44,37 +44,50 @@ public class Turret extends Mob {
         g2d.drawImage(Assets.turret, 0, 0, Assets.tileWidth, Assets.tileHeight, null);
         g2d.rotate(-1);
         g2d.translate(-(int)((x - handler.getCamera().xOffset()) * Assets.tileWidth), -(int)((y - handler.getCamera().yOffset()) * Assets.tileHeight));
-        */
-        int myX = (int)((x - handler.getCamera().xOffset()) * Assets.tileWidth);
-        int myY = (int)((y - handler.getCamera().yOffset()) * Assets.tileHeight);
-        
-        float distance = (float)Math.hypot(handler.getLevel().getPlayer().getX() - x, handler.getLevel().getPlayer().getY() - y);
+         */
 
-        
-        //If the player is in range and in sight
-        if (distance < RANGE && handler.getLevel().raycast(x, y, handler.getLevel().getPlayer().getX(), handler.getLevel().getPlayer().getY())) {
-            timeSinceLastShot = System.currentTimeMillis() - lastFire;
+        float distance = (float) Math.hypot(handler.getLevel().getPlayer().getCenterX() - getCenterX(), handler.getLevel().getPlayer().getCenterY() - getCenterY());
+        timeSinceLastShot = System.currentTimeMillis() - lastFire;
+        if (timeSinceLastShot > fireRate) {
+            loaded = true;
+        }
+        //We can see the player
+        if (distance < RANGE && handler.getLevel().raycast(getCenterX(), getCenterY(), handler.getLevel().getPlayer().getCenterX(), handler.getLevel().getPlayer().getCenterY())) {
             laserColor = Color.RED;
-            if (tracking) {
+            if (!shooting) {
                 //Update our known location of him
-                lastKnownX = handler.getLevel().getPlayer().getX();
-                lastKnownY = handler.getLevel().getPlayer().getY();
+                lastKnownX = handler.getLevel().getPlayer().getCenterX();
+                lastKnownY = handler.getLevel().getPlayer().getCenterY();
             }
-            //If we're within the warning time
+            //If we're within the warning time - begin firing
             if (timeSinceLastShot > fireRate - warningTime) {
                 laserColor = Color.ORANGE;
                 tracking = false;
+                shooting = true;
             }
             g.setColor(laserColor);
-            g.drawLine(myX + Assets.tileWidth / 2, myY + Assets.tileHeight / 2, (int) ((lastKnownX - handler.getCamera().xOffset()) * Assets.tileWidth) + Assets.tileWidth / 2, (int) ((lastKnownY - handler.getCamera().yOffset()) * Assets.tileHeight) + Assets.tileHeight / 2);
+            g.drawLine((int) ((getCenterX() - handler.getCamera().xOffset()) * Assets.tileWidth),
+                    (int) ((getCenterY() - handler.getCamera().yOffset()) * Assets.tileHeight),
+                    (int) ((lastKnownX - handler.getCamera().xOffset()) * Assets.tileWidth),
+                    (int) ((lastKnownY - handler.getCamera().yOffset()) * Assets.tileHeight));
         }
-        if (timeSinceLastShot > fireRate) { //Shoot
+        if (loaded && shooting) {
             float lastDistance = (float) Math.hypot(lastKnownX - x, lastKnownY - y);
             handler.getLevel().addEntity(new TurretBullet(x, y, .1f * (lastKnownX - x) / lastDistance, .1f * (lastKnownY - y) / lastDistance, handler));
             lastFire = System.currentTimeMillis();
-            tracking = true;
+            shooting = false;
+            loaded = false;
         }
-        g.drawImage(Assets.turret, myX, myY, Assets.tileWidth, Assets.tileHeight, null);
-        
+        g.drawImage(Assets.turret, (int) ((getX() - handler.getCamera().xOffset()) * Assets.tileWidth),
+                (int) ((getY() - handler.getCamera().yOffset()) * Assets.tileHeight), Assets.tileWidth, Assets.tileHeight, null);
+        if (loaded) {
+            g.setColor(Color.GREEN);
+        } else {
+            g.setColor(Color.DARK_GRAY);
+        }
+        if (shooting) {
+            g.setColor(Color.ORANGE);
+        }
+        g.fillRect((int) ((getX() - handler.getCamera().xOffset()) * Assets.tileWidth), (int) ((getY() - handler.getCamera().yOffset()) * Assets.tileHeight), 15, 15);
     }
 }
