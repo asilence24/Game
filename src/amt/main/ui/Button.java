@@ -49,9 +49,9 @@ public class Button {
     public void render(Graphics g){
         
         if(!highlighted){
-            g.drawImage(texture, x, y, width, height, null);
+            g.drawImage(texture, (int)x, (int)y, width, height, null);
         } else {
-            g.drawImage(highlightTexture, x, y, width, height, null);
+            g.drawImage(highlightTexture, (int)x, (int)y, width, height, null);
         }
         
         /*
@@ -73,5 +73,5 @@ public class Button {
     
     //getters
     public String getText(){return text;}
-    
+    public int getY(){return y;}
 }

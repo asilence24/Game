@@ -17,7 +17,6 @@ public class GameState extends State{
     
     public GameState(Handler handler){    
         super(handler);
-        level = LevelLoader.loadLevel("test", handler);
         handler.setLevel(level);
         pauseMenu = new PauseMenu(handler);
         this.handler = handler;
@@ -45,6 +44,10 @@ public class GameState extends State{
     public void reloadState() {
         handler.getKeyManager().escapePressed=false;
         paused = false;
+    }
+    
+    public void setLevel(String levelName){
+        level = LevelLoader.loadLevel(levelName, handler);
     }
     
 }

@@ -10,8 +10,8 @@ import physics.Force;
 
 public class Player extends Mob {
     
-    private float knockBack = .15f;
-    private int knockBackTime = 40;
+    private float knockBack = 0.15f;
+    private int knockBackTime = 400;
     private float speed;
     
     //bullets
@@ -35,7 +35,7 @@ public class Player extends Mob {
     private void movement(){
         xMove = 0;
         if(handler.getKeyManager().getSpaceTapped() && onGround()){
-            body.addForce(new Force(0, -.25f, 60));
+            body.addForce(new Force(0, -0.25f, 60));
         }
         if(handler.getKeyManager().getAPressed()){
             xMove = -speed;
@@ -80,8 +80,6 @@ public class Player extends Mob {
                 reloadTimer=0;
             }
         }
-        
-        System.out.println(curBullets + " " + maxBullets);
         bulletBar.update(curBullets);
     }
     

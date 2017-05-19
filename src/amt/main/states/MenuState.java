@@ -53,7 +53,7 @@ public class MenuState extends State {
      */
     private void checkButtons() {
         if (startButton.click()) {
-            State.setState(handler.getGameState());
+            State.setState(handler.getLevelSelectionState());
         }
         if (closeButton.click()) {
             handler.closeGame();

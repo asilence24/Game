@@ -5,6 +5,7 @@ import amt.main.gfx.Display;
 import amt.main.input.KeyManager;
 import amt.main.input.MouseManager;
 import amt.main.states.GameState;
+import amt.main.states.LevelSelectionState;
 import amt.main.states.MenuState;
 import amt.main.states.State;
 
@@ -32,6 +33,7 @@ public class Game extends GameLoop {
     
     private State menuState;
     private State gameState;
+    private State levelSelectionState;
     
     /**
      * Is called on start of program
@@ -64,8 +66,9 @@ public class Game extends GameLoop {
         //set up state
         menuState = new MenuState(handler);
         gameState = new GameState(handler);
+        levelSelectionState = new LevelSelectionState(handler);
         
-        State.setState(gameState);
+        State.setState(menuState);
         
         //set up closing operation
         display.getFrame().addWindowListener(new WindowAdapter() {
@@ -132,6 +135,7 @@ public class Game extends GameLoop {
     
     public State getMenuState(){return menuState;}
     public State getGameState(){return gameState;}
+    public State getLevelSelectionState(){return levelSelectionState;}
     
     public int getWidth(){return width;}
     public int getHeight(){return height;}
