@@ -43,6 +43,14 @@ public abstract class Entity {
         return y;
     }
     
+    public float getCenterX() {
+        return x + .5f;
+    }
+    
+    public float getCenterY() {
+        return y + .5f;
+    }
+    
     public boolean destroy() {
         return destroy;
     }

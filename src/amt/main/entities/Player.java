@@ -3,10 +3,10 @@ package amt.main.entities;
 import amt.main.Handler;
 import amt.main.gfx.Assets;
 import amt.main.ui.IconBar;
+import amt.main.util.Force;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import physics.Force;
 
 public class Player extends Mob {
     

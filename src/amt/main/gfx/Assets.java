@@ -12,7 +12,7 @@ public class Assets {
     public static int tileWidth=64, tileHeight=64;
     
     public static BufferedImage platform, background;
-    public static BufferedImage player, bullet;
+    public static BufferedImage player, bullet, turret;
     
     private static SpriteSheet sheet;
     
@@ -32,7 +32,8 @@ public class Assets {
         background = easyLoad(11, 6);
         
         player = easyLoad(0,4);
-        bullet = easyLoad(12,2);
+        turret = easyLoad(2, 0);
+        bullet = easyLoad(12, 2);
         
         //buttonsheet
         buttonSheet = new SpriteSheet(ImageLoader.loadImage("/textures/blueSheet.png"));
@@ -41,6 +42,7 @@ public class Assets {
         buttonDown = buttonSheet.crop(buttonWidth, 0, buttonWidth, buttonHeight);
     }
     
+    //Uses tiles instead of pixels
     private static BufferedImage easyLoad(int x, int y) {
         return sheet.crop(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
     }
