@@ -8,7 +8,7 @@ import java.awt.Rectangle;
 public class PlayerBullet extends Projectile {
 
     public PlayerBullet(float x, float y, float xMove, float yMove, Handler handler) {
-        super(x, y, xMove, yMove, new Rectangle(20, 20, 20, 20), handler);
+        super(1, .2f, x, y, xMove, yMove, new Rectangle(20, 20, 20, 20), handler);
     }
     //20
     @Override
@@ -16,4 +16,8 @@ public class PlayerBullet extends Projectile {
         g.drawImage(Assets.bullet, (int)((x - handler.getCamera().xOffset()) * Assets.tileWidth), (int)((y - handler.getCamera().yOffset()) * Assets.tileHeight), Assets.tileWidth, Assets.tileHeight, null);
     }
     
+    @Override
+    protected void checkEntityCollisions() {
+        
+    }
 }

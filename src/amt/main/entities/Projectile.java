@@ -1,23 +1,31 @@
 package amt.main.entities;
 
 import amt.main.Handler;
-import amt.main.gfx.Assets;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
 public abstract class Projectile extends Entity {
 
-    protected float xMove, yMove;
+    protected int damage;
+    protected float knockback, xMove, yMove;
     
-    public Projectile(float x, float y, float xMove, float yMove, Rectangle bounds, Handler handler) {
+    public Projectile(int damage, float knockback, float x, float y,float xMove, float yMove, Rectangle bounds, Handler handler) {
         super(x, y, bounds, handler);
+        this.damage = damage;
+        this.knockback = knockback;
         this.xMove = xMove;
         this.yMove = yMove;
     }
     
     public void update() {
+        checkTileCollisions();
+        checkEntityCollisions();
+    }
+    
+    private void checkTileCollisions() {
         float deltaX = xMove;
         float deltaY = yMove;
+        //Tile collisions:
         if (deltaX > 0) { //Moving right
             float tempX = x + deltaX + xBound + boundWidth;
             if (!collisionWithTile(tempX, y + yBound) && !collisionWithTile(tempX, y + yBound + boundHeight)) {
@@ -49,6 +57,8 @@ public abstract class Projectile extends Entity {
             }
         }
     }
+    
+    protected abstract void checkEntityCollisions();
 
     public abstract void render(Graphics g);
 }

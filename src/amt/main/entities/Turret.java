@@ -18,7 +18,7 @@ public class Turret extends Mob {
     private Color laserColor, indicatorColor;
 
     public Turret(float x, float y, Handler handler) {
-        super(x, y, 100, 0, new Rectangle(0, 0, 64, 64), handler);
+        super(x, y, 3, 0, new Rectangle(0, 0, 64, 64), handler);
     }
 
     @Override

@@ -54,4 +54,11 @@ public abstract class Entity {
     public boolean destroy() {
         return destroy;
     }
+    
+    /**
+     * @return The bounds of the entity, in pixels but in the level worldspace. Just use this for intersections.
+     */
+    public Rectangle getBounds() {
+        return new Rectangle((int)(x * Assets.tileWidth) + bounds.x, (int)(y * Assets.tileHeight) + bounds.y, bounds.width, bounds.height);
+    }
 }

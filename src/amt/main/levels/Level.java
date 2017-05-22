@@ -110,6 +110,10 @@ public class Level {
         return tiles[0].length;
     }
     
+    public HashSet<Entity> getEntities() {
+        return entities;
+    }
+    
     public Player getPlayer() {
         return player;
     }

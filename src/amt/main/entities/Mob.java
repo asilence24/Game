@@ -1,6 +1,7 @@
 package amt.main.entities;
 
 import amt.main.Handler;
+import amt.main.util.Force;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import amt.main.util.Rigidbody;
@@ -54,6 +55,19 @@ public abstract class Mob extends Entity {
                 body.resetY();
             }
         }
+    }
+    
+    /**
+     * Call when a projectile hits this mob.
+     * @param damage The damage to do this mob
+     * @param knockback The force of knockback
+     */
+    public void hit(int damage, Force knockback) {
+        health -= damage;
+        if (health <= 0) {
+            destroy = true;
+        }
+        body.addForce(knockback);
     }
 
     /**

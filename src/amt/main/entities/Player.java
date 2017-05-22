@@ -80,8 +80,6 @@ public class Player extends Mob {
                 reloadTimer=0;
             }
         }
-        
-        System.out.println(curBullets + " " + maxBullets);
         bulletBar.update(curBullets);
     }
     
