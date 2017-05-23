@@ -63,20 +63,32 @@ public class KeyManager implements KeyListener{
     public boolean getUpTapped() {
         return curKeys[KeyEvent.VK_UP] && curKeys[KeyEvent.VK_UP] != oldKeys[KeyEvent.VK_UP];
     }
+    public boolean getUpReleased() {
+        return !curKeys[KeyEvent.VK_UP] && curKeys[KeyEvent.VK_UP] != oldKeys[KeyEvent.VK_UP];
+    }
     
     public boolean getDownPressed(){return curKeys[KeyEvent.VK_DOWN];}
     public boolean getDownTapped() {
         return curKeys[KeyEvent.VK_DOWN] && curKeys[KeyEvent.VK_DOWN] != oldKeys[KeyEvent.VK_DOWN];
+    }
+    public boolean getDownReleased() {
+        return !curKeys[KeyEvent.VK_DOWN] && curKeys[KeyEvent.VK_DOWN] != oldKeys[KeyEvent.VK_DOWN];
     }
     
     public boolean getLeftPressed(){return curKeys[KeyEvent.VK_LEFT];}
     public boolean getLeftTapped() {
         return curKeys[KeyEvent.VK_LEFT] && curKeys[KeyEvent.VK_LEFT] != oldKeys[KeyEvent.VK_LEFT];
     }
+    public boolean getLeftReleased() {
+        return !curKeys[KeyEvent.VK_LEFT] && curKeys[KeyEvent.VK_LEFT] != oldKeys[KeyEvent.VK_LEFT];
+    }
     
     public boolean getRightPressed(){return curKeys[KeyEvent.VK_RIGHT];}
     public boolean getRightTapped() {
         return curKeys[KeyEvent.VK_RIGHT] && curKeys[KeyEvent.VK_RIGHT] != oldKeys[KeyEvent.VK_RIGHT];
+    }
+    public boolean getRightReleased() {
+        return !curKeys[KeyEvent.VK_RIGHT] && curKeys[KeyEvent.VK_RIGHT] != oldKeys[KeyEvent.VK_RIGHT];
     }
     
     public boolean getSpacePressed(){return curKeys[KeyEvent.VK_SPACE];}
