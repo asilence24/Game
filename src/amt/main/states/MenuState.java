@@ -42,9 +42,9 @@ public class MenuState extends State {
 
     @Override
     public void update() {
-        for (Button b : buttons) {
+        buttons.forEach((b) -> {
             b.update();
-        }
+        });
         checkButtons();
     }
 
@@ -62,9 +62,9 @@ public class MenuState extends State {
 
     @Override
     public void render(Graphics g) {
-        for (Button b : buttons) {
+        buttons.forEach((b) -> {
             b.render(g);
-        }
+        });
 
         //draws text
         g.setFont(new Font("Comic Sans MS", Font.BOLD, 12));

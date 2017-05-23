@@ -20,6 +20,7 @@ public class Assets {
     public static int buttonWidth=190,buttonHeight=48;
     
     public static BufferedImage buttonUp, buttonDown;
+    public static BufferedImage buttonGrey;
     public static BufferedImage rightArrow, rightArrowDown, leftArrow, leftArrowDown;
     
     private static SpriteSheet buttonSheet;
@@ -49,6 +50,7 @@ public class Assets {
         
         buttonUp = buttonSheet.crop(0, 0, buttonWidth, buttonHeight);
         buttonDown = buttonSheet.crop(buttonWidth, 0, buttonWidth, buttonHeight);
+        buttonGrey = buttonSheet.crop(3 * buttonHeight, 0, buttonWidth, buttonHeight);
         
         rightArrow = buttonSheet.crop(339, 143, 39, 30);
         leftArrow = buttonSheet.crop(378, 143, 39, 30);
@@ -59,8 +61,8 @@ public class Assets {
         //levelsheet
         levelSheet = new SpriteSheet(ImageLoader.loadImage("/textures/TestLevelImage.png"));
         
-        testLevel = levelSheet.crop(0, 0, testWidth, testHeight);
-        testLevelHighlight = levelSheet.crop(testWidth, 0, testWidth, testHeight);
+        testLevel = levelSheet.crop(testWidth, 0, testWidth, testHeight);
+        testLevelHighlight = levelSheet.crop(0, 0, testWidth, testHeight);
     }
     
     private static BufferedImage easyLoad(int x, int y) {
