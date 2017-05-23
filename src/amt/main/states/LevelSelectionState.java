@@ -39,7 +39,7 @@ public class LevelSelectionState extends State{
                 mid - 78, handler.getHeight() / 3, 78, 60, "");
         leftArrow = new Button(handler, Assets.leftArrow, Assets.leftArrowDown,
                 handler.getWidth() / 2 + buttonWidth, handler.getHeight() / 3, 78, 60, "");
-        startButton = new Button(handler, Assets.buttonUp, Assets.buttonDown,
+        startButton = new Button(handler, Assets.buttonUp, Assets.buttonDown, Assets.buttonGrey,
                 mid, (int) (handler.getHeight() / 1.3) - (buttonHeight / 2), buttonWidth * 2, buttonHeight * 2, "Start Game");
         
         buttons.add(backButton);
@@ -57,6 +57,7 @@ public class LevelSelectionState extends State{
         
         if(offset==0){
             startButton.setClickable(false);
+            handler.getGameState().setLevel("test");
         } else {
             startButton.setClickable(true);
         }
@@ -90,7 +91,7 @@ public class LevelSelectionState extends State{
         }
         
         if(startButton.click()){
-            
+            State.setState(handler.getGameState());
         }
     }
     
@@ -119,6 +120,10 @@ public class LevelSelectionState extends State{
     @Override
     public void reloadState() {
         
+    }
+
+    @Override
+    public void setLevel(String level) {
     }
     
 }

@@ -84,4 +84,8 @@ public class MenuState extends State {
         }
     }
 
+    @Override
+    public void setLevel(String level) {
+    }
+
 }

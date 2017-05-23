@@ -50,7 +50,7 @@ public class Assets {
         
         buttonUp = buttonSheet.crop(0, 0, buttonWidth, buttonHeight);
         buttonDown = buttonSheet.crop(buttonWidth, 0, buttonWidth, buttonHeight);
-        buttonGrey = buttonSheet.crop(3 * buttonHeight, 0, buttonWidth, buttonHeight);
+        buttonGrey = buttonSheet.crop(0, 3 * buttonHeight, buttonWidth, buttonHeight);
         
         rightArrow = buttonSheet.crop(339, 143, 39, 30);
         leftArrow = buttonSheet.crop(378, 143, 39, 30);
