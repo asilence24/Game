@@ -17,7 +17,7 @@ public class Force {
         xStep = x / length;
         yStep = y / length;
     }
-    
+
     public void update() {
         t--;
         if (t <=0) {

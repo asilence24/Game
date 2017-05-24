@@ -6,12 +6,10 @@ import java.awt.Rectangle;
 
 public abstract class Projectile extends Entity {
 
-    protected int damage;
     protected float knockback, xMove, yMove;
     
-    public Projectile(int damage, float knockback, float x, float y,float xMove, float yMove, Rectangle bounds, Handler handler) {
+    public Projectile(float knockback, float x, float y,float xMove, float yMove, Rectangle bounds, Handler handler) {
         super(x, y, bounds, handler);
-        this.damage = damage;
         this.knockback = knockback;
         this.xMove = xMove;
         this.yMove = yMove;

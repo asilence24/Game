@@ -17,8 +17,10 @@ import java.awt.Rectangle;
  */
 public class TurretBullet extends Projectile {
     
+    private final int DAMAGE = 1;
+    
     public TurretBullet(float x, float y, float xMove, float yMove, Handler handler) {
-        super(1, .05f, x, y, xMove, yMove, new Rectangle(20, 20, 20, 20), handler);
+        super(.05f, x, y, xMove, yMove, new Rectangle(20, 20, 20, 20), handler);
     }
     
     @Override
@@ -31,7 +33,7 @@ public class TurretBullet extends Projectile {
         Player p = handler.getLevel().getPlayer();
         if (getBounds().intersects(p.getBounds())) {
             float magnitude = (float) Math.hypot(xMove, yMove);
-                //p.hit(damage, new Force(xMove * knockback / magnitude, yMove * knockback / magnitude, 60));
+                p.hit(DAMAGE, new Force(xMove * knockback / magnitude, yMove * knockback / magnitude, 60));
                 destroy = true;
         }
     }
