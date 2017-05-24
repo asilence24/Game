@@ -68,7 +68,7 @@ public class Game extends GameLoop {
         gameState = new GameState(handler);
         levelSelectionState = new LevelSelectionState(handler);
         
-        State.setState(menuState);
+        State.setState(gameState);
         
         //set up closing operation
         display.getFrame().addWindowListener(new WindowAdapter() {
