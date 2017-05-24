@@ -15,6 +15,9 @@ public class Player extends Mob {
     private int knockBackTime = 40;
     private float speed;
     
+    //health bar
+    private IconBar healthBar;
+    
     //bullets
     private int maxBullets=5, curBullets=5, bulletsStored;
     private IconBar bulletBar;
@@ -25,7 +28,8 @@ public class Player extends Mob {
     public Player (int maxHealth, float speed, float x, float y, Handler handler) {
         super(x, y, maxHealth, speed, new Rectangle(10, 5, 44, 52), handler);
         this.speed = speed;
-        bulletBar = new IconBar(maxBullets, 10, 10, Assets.bullet);
+        bulletBar = new IconBar(maxBullets, 10, 50, Assets.bullet);
+        healthBar = new IconBar(maxHealth, 10, 10, Assets.heart);
     }
     
     @Override
@@ -33,6 +37,7 @@ public class Player extends Mob {
         movement();
         attacks();
         bullets();
+        healthBar.update(health);
     }
     
     private void movement(){
@@ -111,5 +116,6 @@ public class Player extends Mob {
         g.setColor(Color.red);
         g.drawRect((int)((x - handler.getCamera().xOffset()) * Assets.tileWidth) + bounds.x, (int)((y - handler.getCamera().yOffset()) * Assets.tileHeight) + bounds.y, bounds.width, bounds.height);
         bulletBar.render(g);
+        healthBar.render(g);
     }
 }

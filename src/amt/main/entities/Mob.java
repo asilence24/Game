@@ -8,7 +8,7 @@ import amt.main.util.Rigidbody;
 
 public abstract class Mob extends Entity {
     
-    private int health, maxHealth;
+    protected int health, maxHealth;
     protected float xMove, yMove;
     protected Rigidbody body;
     
