@@ -18,8 +18,19 @@ public class Assets {
     
     //buttonsheet
     public static int buttonWidth=190,buttonHeight=48;
+    
     public static BufferedImage buttonUp, buttonDown;
+    public static BufferedImage buttonGrey;
+    public static BufferedImage rightArrow, rightArrowDown, leftArrow, leftArrowDown;
+    
     private static SpriteSheet buttonSheet;
+    
+    //testlevel
+    public static int testWidth=394, testHeight = 426;
+    
+    public static BufferedImage testLevel, testLevelHighlight;
+    
+    public static SpriteSheet levelSheet;
     
     /**
      * initiates all assets
@@ -40,6 +51,19 @@ public class Assets {
         
         buttonUp = buttonSheet.crop(0, 0, buttonWidth, buttonHeight);
         buttonDown = buttonSheet.crop(buttonWidth, 0, buttonWidth, buttonHeight);
+        buttonGrey = buttonSheet.crop(0, 3 * buttonHeight, buttonWidth, buttonHeight);
+        
+        rightArrow = buttonSheet.crop(339, 143, 39, 30);
+        leftArrow = buttonSheet.crop(378, 143, 39, 30);
+        
+        rightArrowDown = buttonSheet.crop(417, 143, 39, 30);
+        leftArrowDown = buttonSheet.crop(456, 143, 39, 30);
+        
+        //levelsheet
+        levelSheet = new SpriteSheet(ImageLoader.loadImage("/textures/TestLevelImage.png"));
+        
+        testLevel = levelSheet.crop(testWidth, 0, testWidth, testHeight);
+        testLevelHighlight = levelSheet.crop(0, 0, testWidth, testHeight);
     }
     
     //Uses tiles instead of pixels

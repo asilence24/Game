@@ -42,9 +42,9 @@ public class MenuState extends State {
 
     @Override
     public void update() {
-        for (Button b : buttons) {
+        buttons.forEach((b) -> {
             b.update();
-        }
+        });
         checkButtons();
     }
 
@@ -53,7 +53,7 @@ public class MenuState extends State {
      */
     private void checkButtons() {
         if (startButton.click()) {
-            State.setState(handler.getGameState());
+            State.setState(handler.getLevelSelectionState());
         }
         if (closeButton.click()) {
             handler.closeGame();
@@ -62,9 +62,9 @@ public class MenuState extends State {
 
     @Override
     public void render(Graphics g) {
-        for (Button b : buttons) {
+        buttons.forEach((b) -> {
             b.render(g);
-        }
+        });
 
         //draws text
         g.setFont(new Font("Comic Sans MS", Font.BOLD, 12));
@@ -82,6 +82,10 @@ public class MenuState extends State {
         } catch (InterruptedException ex) {
             Logger.getLogger(PauseMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public void setLevel(String level) {
     }
 
 }

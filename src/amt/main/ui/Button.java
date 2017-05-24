@@ -23,10 +23,26 @@ public class Button {
     
     private boolean highlighted=false;
     
+    private boolean clickable=true;
+    private BufferedImage inactiveTexture;
+    
     public Button(Handler handler, BufferedImage texture, BufferedImage highlightTexture, int x, int y, int width, int height, String text){
         this.handler = handler;
         this.texture = texture;
         this.highlightTexture = highlightTexture;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.text = text;
+        clickable=true;
+    }
+    
+    public Button(Handler handler, BufferedImage texture, BufferedImage highlightTexture, BufferedImage inactiveTexture, int x, int y, int width, int height, String text){
+        this.handler = handler;
+        this.texture = texture;
+        this.highlightTexture = highlightTexture;
+        this.inactiveTexture = inactiveTexture;
         this.x = x;
         this.y = y;
         this.width = width;
@@ -44,16 +60,19 @@ public class Button {
         } else {
             highlighted = false;
         }
+        
     }
     
     public void render(Graphics g){
-        
-        if(!highlighted){
-            g.drawImage(texture, x, y, width, height, null);
+        if (clickable==true) {
+            if (!highlighted) {
+                g.drawImage(texture, (int) x, (int) y, width, height, null);
+            } else {
+                g.drawImage(highlightTexture, (int) x, (int) y, width, height, null);
+            }
         } else {
-            g.drawImage(highlightTexture, x, y, width, height, null);
+            g.drawImage(inactiveTexture, (int) x, (int) y, width, height, null);
         }
-        
         /*
         if(highlighted){
             g.drawImage(highlightTexture, x, y, width, height, null);
@@ -63,6 +82,9 @@ public class Button {
     }
     
     public boolean click(){
+        if(clickable==false){
+            return false;
+        }
         if(highlighted){
             if(handler.getMouseManager().getLeftPressed()){
                 return true;
@@ -71,7 +93,9 @@ public class Button {
         return false;
     }
     
-    //getters
+    //getters & setters
     public String getText(){return text;}
+    public int getY(){return y;}
     
+    public void setClickable(boolean clickable){this.clickable = clickable;}
 }

@@ -38,7 +38,7 @@ public class Player extends Mob {
     private void movement(){
         xMove = 0;
         if(handler.getKeyManager().getSpaceTapped() && onGround()){
-            body.addForce(new Force(0, -.25f, 60));
+            body.addForce(new Force(0, -0.25f, 60));
         }
         if(handler.getKeyManager().getAPressed()){
             xMove = -speed;
