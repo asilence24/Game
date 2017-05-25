@@ -109,13 +109,26 @@ public class Player extends Mob {
         }
         bulletBar.update(curBullets);
     }
-    
+
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.player, (int)((x - handler.getCamera().xOffset()) * Assets.tileWidth), (int)((y - handler.getCamera().yOffset()) * Assets.tileHeight), Assets.tileWidth, Assets.tileHeight, null);
+        if (charging) {
+            g.drawImage(Assets.player, (int) ((x + (2f * Math.random() - 1f)*bulletsStored/25f - handler.getCamera().xOffset()) * Assets.tileWidth - 2 * bulletsStored),
+                    (int) ((y + (2f * Math.random() - 1f)*bulletsStored/25f - handler.getCamera().yOffset()) * Assets.tileHeight - 2 * bulletsStored),
+                    Assets.tileWidth + 4 * bulletsStored, Assets.tileHeight + 4 * bulletsStored, null);
+        } else {
+            g.drawImage(Assets.player, (int) ((x - handler.getCamera().xOffset()) * Assets.tileWidth), (int) ((y - handler.getCamera().yOffset()) * Assets.tileHeight),
+                    Assets.tileWidth, Assets.tileHeight, null);
+        }
         //g.setColor(Color.red);
         //g.drawRect((int)((x - handler.getCamera().xOffset()) * Assets.tileWidth) + bounds.x, (int)((y - handler.getCamera().yOffset()) * Assets.tileHeight) + bounds.y, bounds.width, bounds.height);
         bulletBar.render(g);
         healthBar.render(g);
+    }
+    
+    @Override
+    public void hit(int damage, Force knockback) {
+        super.hit(damage, knockback);
+        handler.getLevel().screenShake(16, 20);
     }
 }

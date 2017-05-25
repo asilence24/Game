@@ -23,6 +23,8 @@ public class Level {
     HashSet<Entity> entities, oldEntities, newEntities;
     private Camera camera;
     private Player player;
+    private int shakeTimer = 0;
+    private int shakeAmount = 0;
     
     public Level(int width, int height, Handler handler) {
         tiles = new Tile[width][height];
@@ -44,9 +46,19 @@ public class Level {
         entities.removeAll(oldEntities);
         oldEntities.clear();
         camera.updateCamera();
+        
+        if (shakeTimer > 0) {
+            shakeTimer--;
+            shakeAmount --;
+        }
     }
     
     public void render(Graphics g) {
+        if (shakeTimer > 0) {
+            g.translate((int)(2 * shakeAmount * Math.random() - shakeAmount), (int)(2 * shakeAmount * Math.random() - shakeAmount));
+        } else {
+            g.translate(0, 0);
+        }
         for (int x = 0; x < tiles.length; x++) {
             for (int y = 0; y < tiles[0].length; y++) {
                 tiles[x][y].render(x, y, g);
@@ -54,7 +66,12 @@ public class Level {
         }
         for (Entity e : entities) {
             e.render(g);
-        }
+        } 
+    }
+    
+    public void screenShake(int amount, int length) {
+        shakeTimer = length;
+        shakeAmount = amount;
     }
     
     /**

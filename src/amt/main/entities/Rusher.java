@@ -85,7 +85,11 @@ public class Rusher extends Mob {
                 destroy = true;
             }
         } else {
-            g.drawImage(Assets.rusher, (int) ((x - handler.getCamera().xOffset()) * Assets.tileWidth), (int) ((y - handler.getCamera().yOffset()) * Assets.tileHeight), Assets.tileWidth, Assets.tileHeight, null);
+            if (exploding) {
+                g.drawImage(Assets.explodingRusher, (int) ((x + (2f * Math.random() - 1f) / 8f - handler.getCamera().xOffset()) * Assets.tileWidth), (int) ((y + (2f * Math.random() - 1f) / 8f - handler.getCamera().yOffset()) * Assets.tileHeight), Assets.tileWidth, Assets.tileHeight, null);
+            } else {
+                g.drawImage(Assets.rusher, (int) ((x - handler.getCamera().xOffset()) * Assets.tileWidth), (int) ((y - handler.getCamera().yOffset()) * Assets.tileHeight), Assets.tileWidth, Assets.tileHeight, null);
+            }
         }
     }
 }

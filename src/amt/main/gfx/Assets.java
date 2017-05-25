@@ -12,7 +12,7 @@ public class Assets {
     public static int tileWidth=64, tileHeight=64;
     
     public static BufferedImage platform, background;
-    public static BufferedImage player, bullet, turret, heart, rusher;
+    public static BufferedImage player, bullet, turret, heart, rusher, explodingRusher;
     
     private static SpriteSheet sheet;
     
@@ -47,6 +47,7 @@ public class Assets {
         bullet = easyLoad(12, 2);
         heart = easyLoad(12, 0);
         rusher = easyLoad(6, 5);
+        explodingRusher = easyLoad(7, 5);
         
         //buttonsheet
         buttonSheet = new SpriteSheet(ImageLoader.loadImage("/textures/blueSheet.png"));
