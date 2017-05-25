@@ -59,7 +59,7 @@ public class LevelLoader
                             }
                         }
                         if (!found) { //Couldn't find specification
-                            System.err.println("Encountered an undefined color!");
+                            System.err.println("Encountered an undefined color! " + pixelColor.getRed() + " " + pixelColor.getGreen() + " " + pixelColor.getRed() + " at " + x + ", " + y);
                             System.exit(1);
                         } 
                     }
@@ -104,6 +104,8 @@ public class LevelLoader
                 return new Player(10, .06f, x, y, handler);
             case "Turret":
                 return new Turret(x, y, handler);
+            case "Rusher":
+                return new Rusher(x, y, handler);
             default:
                 System.err.println("LevelLoader doesn't know what Entity \"" + word + "\" is.");
                 return null;
