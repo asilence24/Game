@@ -119,7 +119,7 @@ public class LevelSelectionState extends State{
     
     @Override
     public void reloadState() {
-        
+        offset=0;
     }
 
     @Override
