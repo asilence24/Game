@@ -3,6 +3,7 @@ package amt.main.entities;
 import amt.main.Handler;
 import amt.main.gfx.Assets;
 import amt.main.input.KeyManager;
+import amt.main.states.State;
 import amt.main.ui.IconBar;
 import amt.main.util.Force;
 import java.awt.Color;
@@ -38,6 +39,9 @@ public class Player extends Mob {
         attacks();
         bullets();
         healthBar.update(health);
+        if(health<=0){
+            State.setState(handler.getDeathState());
+        }
     }
     
     private void movement(){

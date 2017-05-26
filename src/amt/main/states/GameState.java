@@ -17,6 +17,8 @@ public class GameState extends State{
     
     private String levelName;
     
+    public static String curLevel;
+    
     public GameState(Handler handler){    
         super(handler);
         //temp
