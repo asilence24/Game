@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -21,6 +22,11 @@ public class DeathState extends State {
     private ArrayList<Button> buttons = new ArrayList<>();
     private Button restartButton;
     private Button mainMenuButton;
+    
+    private int i;
+    
+    private String[] death = {"You ded Fam", "You tryed", "beter luck next tim", "A for effort", "participation Award", "brilliant", "esports ready",
+    "best player NA", "6/10 \"too much water\" -IGN"};
     
     public DeathState(Handler handler){
         super(handler);
@@ -60,10 +66,12 @@ public class DeathState extends State {
             b.render(g);
         });
         
+        
+        
         g.setColor(Color.white);
         g.setFont(new Font("Comic Sans MS", Font.BOLD, 72));
         
-        g.drawString("You ded Fam", (handler.getWidth() / 2) - (g.getFontMetrics().stringWidth(restartButton.getText()) / 2), handler.getHeight()/2);
+        g.drawString(death[i], (handler.getWidth() / 2) - (g.getFontMetrics().stringWidth(death[i]) / 2), handler.getHeight()/2);
         
         g.setFont(new Font("Comic Sans MS", Font.BOLD, 12));
         
@@ -72,7 +80,10 @@ public class DeathState extends State {
     }
     
     @Override
-    public void reloadState() {}
+    public void reloadState() {
+        Random r = new Random();
+        i = r.nextInt(death.length);
+    }
     @Override
     public void setLevel(String level) {}
     
