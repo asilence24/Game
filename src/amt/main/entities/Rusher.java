@@ -35,12 +35,14 @@ public class Rusher extends Mob {
     @Override
     public void update() {
         if (!exploding) {
-            if (handler.getLevel().getPlayer().getCenterX() > getCenterX()) { //Player is further right, run right.
+            if (handler.getLevel().getPlayer().getCenterX() > getCenterX()) {
+                //Player is further right, run right.
                 xMove = speed;
                 if (onGround() && handler.getLevel().getTile(x + xBound + boundWidth + .2f, getCenterY()).isSolid()) { //If there's a solid tile to the right of us,
                     body.addForce(new Force(0, -0.28f, 60)); //Jump
                 }
-            } else { //Player is further left, run left.
+            } else {
+                //Player is further left, run left.
                 xMove = -speed;
                 if (onGround() && handler.getLevel().getTile(x + xBound - .2f, getCenterY()).isSolid()) { //If there's a solid tile to the left of us,
                     body.addForce(new Force(0, -0.28f, 60)); //Jump

@@ -8,7 +8,7 @@ public abstract class Projectile extends Entity {
 
     protected float knockback, xMove, yMove;
     
-    public Projectile(float knockback, float x, float y,float xMove, float yMove, Rectangle bounds, Handler handler) {
+    public Projectile(float knockback, float x, float y, float xMove, float yMove, Rectangle bounds, Handler handler) {
         super(x, y, bounds, handler);
         this.knockback = knockback;
         this.xMove = xMove;
