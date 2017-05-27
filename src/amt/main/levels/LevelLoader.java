@@ -101,7 +101,7 @@ public class LevelLoader
     private static Entity entityFromWord(String word, int x, int y, Handler handler) {
         switch (word) {
             case "Player":
-                return new Player(10, .06f, x, y, handler);
+                return new Player(x, y, handler);
             case "Turret":
                 return new Turret(x, y, handler);
             case "Rusher":

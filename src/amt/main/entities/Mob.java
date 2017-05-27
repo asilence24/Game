@@ -9,12 +9,13 @@ import amt.main.util.Rigidbody;
 public abstract class Mob extends Entity {
     
     protected int health, maxHealth;
-    protected float xMove, yMove;
+    protected float xMove, yMove, speed;
     protected Rigidbody body;
     
     public Mob (float x, float y, int maxHealth, float speed, Rectangle bounds, Handler handler) {
         super(x, y, bounds, handler);
         health = maxHealth;
+        this.speed = speed;
         body = new Rigidbody();
         this.maxHealth = maxHealth; 
     }

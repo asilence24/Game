@@ -15,8 +15,7 @@ import javafx.scene.shape.Circle;
 public class Rusher extends Mob {
   
     private final float EXPLOSION_RADIUS = 6f, //How big is the explosion?
-            EXPLOSION_DETECTION = 2f, //How close do we get before we start to explode?
-            SPEED = .08f; //Make sure to change this in the constructor as well!
+            EXPLOSION_DETECTION = 2f; //How close do we get before we start to explode?
     private final long EXPLOSION_DELAY = 1500; //How long to wait before exploding.
     private final int EXPLOSION_DAMAGE = 5, KNOCKBACK_DURATION = 60;
     private final float EXPLOSION_KNOCKBACK = .3f;
@@ -37,12 +36,12 @@ public class Rusher extends Mob {
     public void update() {
         if (!exploding) {
             if (handler.getLevel().getPlayer().getCenterX() > getCenterX()) { //Player is further right, run right.
-                xMove = SPEED;
+                xMove = speed;
                 if (onGround() && handler.getLevel().getTile(x + xBound + boundWidth + .2f, getCenterY()).isSolid()) { //If there's a solid tile to the right of us,
                     body.addForce(new Force(0, -0.28f, 60)); //Jump
                 }
             } else { //Player is further left, run left.
-                xMove = -SPEED;
+                xMove = -speed;
                 if (onGround() && handler.getLevel().getTile(x + xBound - .2f, getCenterY()).isSolid()) { //If there's a solid tile to the left of us,
                     body.addForce(new Force(0, -0.28f, 60)); //Jump
                 }
@@ -59,7 +58,9 @@ public class Rusher extends Mob {
                 exploded = true;
             }
         }
-        move();
+        if (!exploded) {
+            move();
+        }
     }
 
     @Override

@@ -14,7 +14,6 @@ public class Player extends Mob {
     
     private float knockBack = .1f;
     private int knockBackTime = 40;
-    private float speed;
     
     //health bar
     private IconBar healthBar;
@@ -26,8 +25,8 @@ public class Player extends Mob {
             lastCharge, chargeTimer = lastCharge,  chargeCooldown = 500;
     private boolean charging;
     
-    public Player (int maxHealth, float speed, float x, float y, Handler handler) {
-        super(x, y, maxHealth, speed, new Rectangle(10, 5, 44, 52), handler);
+    public Player (float x, float y, Handler handler) {
+        super(x, y, 10, .06f, new Rectangle(10, 5, 44, 52), handler);
         this.speed = speed;
         bulletBar = new IconBar(maxBullets, 10, 50, Assets.bullet);
         healthBar = new IconBar(maxHealth, 10, 10, Assets.heart);
