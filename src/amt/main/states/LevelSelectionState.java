@@ -55,11 +55,14 @@ public class LevelSelectionState extends State{
         });
         buttons();
         
-        if(offset==0){
-            startButton.setClickable(false);
-            handler.getGameState().setLevel("test");
-        } else {
+        if(offset == 1){
             startButton.setClickable(true);
+            handler.getGameState().setLevel("test");
+        } else if(offset == 2){
+            startButton.setClickable(true);
+            handler.getGameState().setLevel("Level2");
+        } else {
+            startButton.setClickable(false);
         }
     }
     
@@ -80,7 +83,7 @@ public class LevelSelectionState extends State{
         }
         
         if(leftArrow.click()){
-            if(offset <= 0){
+            if(offset <= 1){
                 offset++;
             }
             try {
@@ -101,7 +104,8 @@ public class LevelSelectionState extends State{
         g.fillRect((handler.getWidth() / 2 - Assets.testWidth / 2) - (Assets.testWidth * offset), (handler.getHeight() / 2 - Assets.testHeight / 2) - 50, Assets.testWidth, Assets.testHeight);
         
         //levels
-        g.drawImage(Assets.testLevelHighlight, (handler.getWidth() / 2 - Assets.testWidth / 2) - (Assets.testWidth * (offset - 1)), (handler.getHeight() / 2 - Assets.testHeight / 2) - 50, Assets.testWidth, Assets.testHeight, null);
+        g.drawImage(Assets.testLevel, (handler.getWidth() / 2 - Assets.testWidth / 2) - (Assets.testWidth * (offset - 1)), (handler.getHeight() / 2 - Assets.testHeight / 2) - 50, Assets.testWidth, Assets.testHeight, null);
+        g.drawImage(Assets.level2, (handler.getWidth() / 2 - Assets.testWidth / 2) - (Assets.testWidth * (offset - 2)), (handler.getHeight() / 2 - Assets.testHeight / 2) - 50, Assets.testWidth, Assets.testHeight, null);
         
         //buttons
         buttons.forEach((b) -> {

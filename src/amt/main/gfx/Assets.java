@@ -28,7 +28,7 @@ public class Assets {
     //testlevel
     public static int testWidth=394, testHeight = 426;
     
-    public static BufferedImage testLevel, testLevelHighlight;
+    public static BufferedImage testLevel, level2;
     
     public static SpriteSheet levelSheet;
     
@@ -63,10 +63,10 @@ public class Assets {
         leftArrowDown = buttonSheet.crop(456, 143, 39, 30);
         
         //levelsheet
-        levelSheet = new SpriteSheet(ImageLoader.loadImage("/textures/TestLevelImage.png"));
+        levelSheet = new SpriteSheet(ImageLoader.loadImage("/textures/levelsheet.png"));
         
         testLevel = levelSheet.crop(testWidth, 0, testWidth, testHeight);
-        testLevelHighlight = levelSheet.crop(0, 0, testWidth, testHeight);
+        level2 = levelSheet.crop(0, 0, testWidth, testHeight);
     }
     
     //Uses tiles instead of pixels
