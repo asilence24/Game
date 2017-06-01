@@ -106,6 +106,8 @@ public class LevelLoader
                 return new Turret(x, y, handler);
             case "Rusher":
                 return new Rusher(x, y, handler);
+            case "Caster":
+                return new Caster(x, y, handler);
             default:
                 System.err.println("LevelLoader doesn't know what Entity \"" + word + "\" is.");
                 return null;
