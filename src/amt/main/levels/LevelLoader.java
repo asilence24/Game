@@ -46,8 +46,10 @@ public class LevelLoader
                                 found = true;
                                 newLevel.setTile(x, y, tileFromWord(sc.next(), handler));
                                 switch (sc.next()) {
+                                    case "ONLY":
+                                        break;
                                     case "WITH":
-                                        newLevel.addEntity(entityFromWord(sc.next(), x, y, handler));
+                                        newLevel.addEntity(entityFromWord(sc.next(), x, y, sc, levelPic, handler));
                                         break;
                                     case "LINKED":
                                         System.err.println("LINKED is not yet supported! Yell at Matt.");
@@ -98,7 +100,7 @@ public class LevelLoader
     }
     
     //Edit entity keywords (in the text file) here:
-    private static Entity entityFromWord(String word, int x, int y, Handler handler) {
+    private static Entity entityFromWord(String word, int x, int y, Scanner sc, BufferedImage pic, Handler handler) {
         switch (word) {
             case "Player":
                 return new Player(x, y, handler);
@@ -108,6 +110,25 @@ public class LevelLoader
                 return new Rusher(x, y, handler);
             case "Caster":
                 return new Caster(x, y, handler);
+            case "Activator":
+                Activator newActivator = new Activator(x, y, new Color(pic.getRGB(x, y)), handler);
+                while (true) {
+                    int targetR = sc.nextInt();
+                    if (targetR == -1)
+                        break;
+                    int targetG = sc.nextInt();
+                    int targetB = sc.nextInt();
+                    String linked = sc.next();
+                    for (int x1 = 0; x1 < pic.getWidth(); x1++) {
+                        for (int y1 = 0; y1 < pic.getHeight(); y1++) {
+                            Color pixelColor = new Color(pic.getRGB(x1, y1), true);
+                            if (pixelColor.getRed() == targetR && pixelColor.getGreen() == targetG && pixelColor.getBlue() == targetB) {
+                                newActivator.link(entityFromWord(linked, x1, y1, sc, pic, handler));                     
+                            }
+                        }
+                    }
+                }
+                return newActivator;
             default:
                 System.err.println("LevelLoader doesn't know what Entity \"" + word + "\" is.");
                 return null;

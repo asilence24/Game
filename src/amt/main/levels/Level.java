@@ -6,13 +6,14 @@
 package amt.main.levels;
 
 import amt.main.Handler;
+import amt.main.entities.Activator;
 import amt.main.entities.Entity;
 import amt.main.entities.Player;
 import amt.main.gfx.Camera;
 import amt.main.tiles.Tile;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.HashSet;
-import java.util.Iterator;
 
 /**
  *
@@ -39,9 +40,11 @@ public class Level {
         entities.addAll(newEntities);
         newEntities.clear();
         for (Entity e : entities) {
-            e.update();
-            if (e.destroy())
+            if (e.isDestroyed()) {
                 oldEntities.add(e);
+                continue;
+            }
+            e.update();
         }
         entities.removeAll(oldEntities);
         oldEntities.clear();
@@ -95,6 +98,19 @@ public class Level {
             y1 += yStep;
         }
         return true;
+    }
+    
+    /**
+     * Destroys all activators that have the same colorKey as the activator that called this.
+     * Allows you to have an activator that is more than one tile large.
+     * @param colorKey The colorKey of the activator that called this method.
+     */
+    public void removeRedundantActivators(Color colorKey) {
+        for (Entity e : entities) {
+            if (e instanceof Activator && ((Activator) e).hasSameColorKey(colorKey)) {
+                e.destroy();
+            }
+        }
     }
     
     public void setTile(int x, int y, Tile tile) {

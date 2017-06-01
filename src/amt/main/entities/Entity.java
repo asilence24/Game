@@ -51,8 +51,12 @@ public abstract class Entity {
         return y + .5f;
     }
     
-    public boolean destroy() {
+    public boolean isDestroyed() {
         return destroy;
+    }
+    
+    public void destroy() {
+        destroy = true;
     }
     
     /**

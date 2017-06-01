@@ -22,7 +22,7 @@ public class GameState extends State{
     public GameState(Handler handler){    
         super(handler);
         //temp
-        level = LevelLoader.loadLevel("test", handler);
+        level = LevelLoader.loadLevel("test2", handler);
         handler.setLevel(level);
         pauseMenu = new PauseMenu(handler);
         this.handler = handler;
