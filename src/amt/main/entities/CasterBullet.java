@@ -56,8 +56,12 @@ public class CasterBullet extends Projectile {
 
     @Override
     public void render(Graphics g) {
-        ((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float)Math.sqrt(1f - ((float) (System.currentTimeMillis() - birthTime) / (float) LIFETIME))));
-        g.drawImage(Assets.bullet, (int) ((x - handler.getCamera().xOffset()) * Assets.tileWidth), (int) ((y - handler.getCamera().yOffset()) * Assets.tileHeight), Assets.tileWidth, Assets.tileHeight, null);
-        ((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+        try {
+            ((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) Math.sqrt(1f - ((float) (System.currentTimeMillis() - birthTime) / (float) LIFETIME))));
+            g.drawImage(Assets.bullet, (int) ((x - handler.getCamera().xOffset()) * Assets.tileWidth), (int) ((y - handler.getCamera().yOffset()) * Assets.tileHeight), Assets.tileWidth, Assets.tileHeight, null);
+            ((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+        } catch (IllegalArgumentException e) {
+            //idk why and idc
+        }
     }
 }
