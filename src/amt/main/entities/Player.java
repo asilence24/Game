@@ -133,5 +133,8 @@ public class Player extends Mob {
     public void hit(int damage, Force knockback) {
         super.hit(damage, knockback);
         handler.getLevel().screenShake(16, 20);
+        if (health <= 0) {
+            update(); //Call update once last time if we died so we get the death state.
+        }
     }
 }
