@@ -22,8 +22,9 @@ public class GameState extends State{
     public GameState(Handler handler){    
         super(handler);
         //temp
-        level = LevelLoader.loadLevel("test2", handler);
+        level = LevelLoader.loadLevel("Level5", handler);
         handler.setLevel(level);
+        curLevel= "Level5";
         pauseMenu = new PauseMenu(handler);
         this.handler = handler;
     }
@@ -56,6 +57,7 @@ public class GameState extends State{
     public void setLevel(String levelName){
         level = LevelLoader.loadLevel(levelName, handler);
         handler.setLevel(level);
+        curLevel = levelName;
     }
     
 }

@@ -49,7 +49,7 @@ public class DeathState extends State {
         });
         
         if(restartButton.click()){
-            handler.getGameState().setLevel("test");
+            handler.getGameState().setLevel(GameState.curLevel);
             State.setState(handler.getGameState());
         }
         if(mainMenuButton.click()){
